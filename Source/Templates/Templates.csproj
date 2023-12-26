@@ -21,12 +21,21 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.TemplateEngine.Tasks" Version="*" PrivateAssets="all" IsImplicitlyDefined="true" />
+		<PackageReference Include="Microsoft.VisualStudio.SlowCheetah" Version="4.0.50">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
+		<Compile Remove="**\*" />
 		<Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**">
 			<PackagePath>content</PackagePath>
 		</Content>
-		<Compile Remove="**\*" />
+		<Content Remove="content\**\Transform.Template.json" />
+		<None Include="content\**\Transform.Template.json" />
 		<None Include="ReadMe.md" Pack="true" PackagePath="" />
 	</ItemGroup>
+	<Target Name="Transform" BeforeTargets="Build">
+		<TransformTask Destination="content/SampleTemplate/.template.config/template.json" Source="Common/Solution.Template.json" Transform="content/SampleTemplate/.template.config/Transform.Template.json" />
+	</Target>
 </Project>
