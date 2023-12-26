@@ -37,6 +37,6 @@
 		<None Include="ReadMe.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 	<Target Name="Transform" BeforeTargets="Build">
-		<TransformTask Destination="content/SampleTemplate/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="content/SampleTemplate/.template.config/Transform.Template.json" />
+		<TransformTask Destination="content/ASPNET-Core-Web-App-Razor-Pages/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="content/ASPNET-Core-Web-App-Razor-Pages/.template.config/Transform.Template.json" />
 	</Target>
 </Project>
