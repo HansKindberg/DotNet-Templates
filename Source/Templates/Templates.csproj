@@ -44,7 +44,11 @@
 		<!--
 			<Message Importance="high" Text="%(Projects.Identity)" />
 		-->
-		<Copy DestinationFolder="%(Projects.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/Directory.Build.props;Common/Directory.Build.targets;Common/NuGet.config;Common/ReadMe.md" />
+		<!--
+			https://www.jrdodds.com/blog/2021/8/23/msbuild-metadata-doesnt-support-string-instance-methods
+			<HasSuffix>$([System.String]::Copy('%(Filename)').Endswith('$(suffix)'))</HasSuffix>
+		-->
+		<Copy Condition="$([System.String]::Copy('%(Projects.Identity)').EndsWith('-Pages'))" DestinationFolder="%(Projects.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/Directory.Build.props;Common/Directory.Build.targets;Common/NuGet.config;Common/ReadMe.md" />
 		<TransformTask Destination="%(Projects.Identity)/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="%(Projects.Identity)/.template.config/Transform.Template.json" />
 	</Target>
 </Project>
