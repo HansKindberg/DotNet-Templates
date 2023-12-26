@@ -45,12 +45,7 @@ Got help by looking at:
 
 - https://github.com/dotnet/sdk/blob/main/template_feed/Microsoft.DotNet.Common.ProjectTemplates.9.0/Microsoft.DotNet.Common.ProjectTemplates.9.0.csproj
 
-
-
-
-
-
-### 1.1 Links
+### 1.2 Links
 
 - [Package authoring best practices](https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices)
 
