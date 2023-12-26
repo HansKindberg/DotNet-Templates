@@ -36,7 +36,15 @@
 		<None Include="content\**\Transform.Template.json" />
 		<None Include="ReadMe.md" Pack="true" PackagePath="" />
 	</ItemGroup>
-	<Target Name="Transform" BeforeTargets="Build">
-		<TransformTask Destination="content/ASPNET-Core-Web-App-Razor-Pages/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="content/ASPNET-Core-Web-App-Razor-Pages/.template.config/Transform.Template.json" />
+	<Target Name="CopyAndTransform" BeforeTargets="Build">
+		<ItemGroup>
+			<!-- https://gist.github.com/robatwilliams/6512233 -->
+			<Projects Include="$([System.IO.Directory]::GetDirectories('content'))" />
+		</ItemGroup>
+		<!--
+			<Message Importance="high" Text="%(Projects.Identity)" />
+		-->
+		<Copy DestinationFolder="%(Projects.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/Directory.Build.props;Common/Directory.Build.targets;Common/NuGet.config;Common/ReadMe.md" />
+		<TransformTask Destination="%(Projects.Identity)/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="%(Projects.Identity)/.template.config/Transform.Template.json" />
 	</Target>
 </Project>

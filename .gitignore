@@ -399,3 +399,9 @@ FodyWeavers.xsd
 
 # Custom
 Source/Templates/content/**/.template.config/template.json
+Source/Templates/content/**/.editorconfig
+Source/Templates/content/**/.gitignore
+Source/Templates/content/**/Directory.Build.props
+Source/Templates/content/**/Directory.Build.targets
+Source/Templates/content/**/NuGet.config
+Source/Templates/content/**/ReadMe.md
