@@ -398,10 +398,18 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Custom
-Source/Templates/content/**/.template.config/template.json
-Source/Templates/content/**/.editorconfig
-Source/Templates/content/**/.gitignore
-Source/Templates/content/**/Directory.Build.props
-Source/Templates/content/**/Directory.Build.targets
-Source/Templates/content/**/NuGet.config
-Source/Templates/content/**/ReadMe.md
+Source/Templates/Content/*/.template.config/template.json
+Source/Templates/Content/*/.editorconfig
+Source/Templates/Content/*/.gitignore
+Source/Templates/Content/*/Build.yml
+Source/Templates/Content/*/Deploy.yml
+Source/Templates/Content/*/Directory.Build.props
+Source/Templates/Content/*/Directory.Build.targets
+Source/Templates/Content/*/NuGet.config
+Source/Templates/Content/*/Pipeline.yml
+Source/Templates/Content/*/ReadMe.md
+Source/Templates/Content/*/Variables.yml
+
+Source/Templates/Content/NuGet-Package*/Source/Project/ReadMe.md
+Source/Templates/Content/NuGet-Package-Large/Source/Project/Project.csproj
+Source/Templates/Content/NuGet-Package-Medium/Source/Project/Project.csproj

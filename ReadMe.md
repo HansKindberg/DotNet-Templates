@@ -1,8 +1,94 @@
 # DotNet-Templates
 
+
+
+
+
+
+
+
+
+
+
+
+
+## BACKUP
+		<!--<ItemGroup>
+			--><!-- https://gist.github.com/robatwilliams/6512233 --><!--
+			<Projects Include="$([System.IO.Directory]::GetDirectories('content'))" />
+		</ItemGroup>
+		
+			<Message Importance="high" Text="%(Projects.Identity)" />
+			--><!--
+		--><!--
+		--><!--
+			https://www.jrdodds.com/blog/2021/8/23/msbuild-metadata-doesnt-support-string-instance-methods
+			<HasSuffix>$([System.String]::Copy('%(Filename)').Endswith('$(suffix)'))</HasSuffix>
+		--><!--
+		<Copy Condition="$([System.String]::Copy('%(Projects.Identity)').EndsWith('-Pages'))" DestinationFolder="%(Projects.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/Directory.Build.props;Common/Directory.Build.targets;Common/NuGet.config;Common/ReadMe.md" />
+		<TransformTask Condition="$([System-->.String]::Copy('%(Projects.Identity)').EndsWith('Arne'))" Destination="%(Projects.Identity)/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="%(Projects.Identity)/.template.config/Transform.Template.json" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 A Template-package (NuGet) for creating items/projects/solutions in dotnet / Visual Studio. For the moment this Template-package only consists of multi-project / solution templates.
 
-## 1 Development
+For the moment, because of an issue, the templates are not enabled in Visual Studio.
+
+## 1 Using the templates
+
+### 1.1 Install
+
+	dotnet new install HansKindberg-DotNet-Templates
+
+### 1.2 Uninstall
+
+	dotnet new uninstall HansKindberg-DotNet-Templates
+
+### 1.3 Issue
+
+Creating solutions with the templates gives a ".vs" folder in the root. Don't know why. This is for the moment removed with a **postAction**. It should be possible to fix it in another way. But for the moment...
+
+
+
+
+
+
+
+
+
+
+
+### 1.4 Run
+
+dotnet new blazorbffoidc -n YourCompany.Bff --HttpsPortCustom 44348
+
+Use the -n or --name parameter to change the name of the output created. This string is also used to substitute the namespace name in the .cs file for the project.
+
+
+
+
+
+
+
+
+
+## 2 Development
 
 I am using Visual Studio 2022 - 17.8.3 when starting this project.
 
@@ -14,7 +100,7 @@ To have "templatepack" you need to install [Microsoft.TemplateEngine.Authoring.T
 
 	dotnet new install Microsoft.TemplateEngine.Authoring.Templates
 
-### 1.1 Adjustments
+### 2.1 Adjustments
 
 After creating the project with:
 
@@ -45,13 +131,13 @@ Got help by looking at:
 
 - https://github.com/dotnet/sdk/blob/main/template_feed/Microsoft.DotNet.Common.ProjectTemplates.9.0/Microsoft.DotNet.Common.ProjectTemplates.9.0.csproj
 
-### 1.2 Install / uninstall
+### 2.2 Install / uninstall
 
 - [dotnet new install](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-install)
 
 How to install/uninstall during development.
 
-#### 1.2.1 Locally built NuGet-package
+#### 2.2.1 Locally built NuGet-package
 
 Install:
 
@@ -61,7 +147,7 @@ Uninstall:
 
 	dotnet new uninstall Blazor.BFF.OpenIDConnect.Template.3.0.0.nupkg
 
-#### 1.2.2 Local folder
+#### 2.2.2 Local folder
 
 Install:
 
@@ -88,7 +174,7 @@ Where `<PATH>` is the path to the folder containing .template.config.
 
 
 
-### 1.3 Links
+### 2.3 Links
 
 - [Package authoring best practices](https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices)
 
@@ -97,7 +183,7 @@ Where `<PATH>` is the path to the folder containing .template.config.
 
 
 
-## 2 Thanks Damien Bowden
+## 3 Thanks Damien Bowden
 
 His article/works led me the way to build "solution"-templates:
 
@@ -105,7 +191,22 @@ His article/works led me the way to build "solution"-templates:
 - [NuGet – Blazor.BFF.OpenIDConnect.Template](https://www.nuget.org/packages/Blazor.BFF.OpenIDConnect.Template)
 - [GitHub – Blazor.BFF.OpenIDConnect.Template](https://github.com/damienbod/Blazor.BFF.OpenIDConnect.Template)
 
-## 3 Links
+## 4 Links
 
+- https://github.com/sayedihashimi/template-sample
+- https://github.com/dotnet/templating
+- [Reference for template.json](https://github.com/dotnet/templating/wiki/Reference-for-template.json)
+- [Reference for template.json - guids](https://github.com/dotnet/templating/wiki/Reference-for-template.json#guids)
 - [Tutorial: Create a template package - Create a template package project](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-template-package?pivots=dotnet-8-0#create-a-template-package-project)
 - [Visual Studio solution-structure for Docker-project with .editorconfig, Directory.Build.props and Directory.Build.targets](https://hanskindberg.wordpress.com/2023/12/21/visual-studio-solution-structure-for-docker-project-with-editorconfig-directory-build-props-and-directory-build-targets/)
+- [Google: build visual studio template package](https://www.google.com/search?q=build+visual+studio+template+package)
+- [Tutorial: Create a template package](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-template-package?pivots=dotnet-8-0)
+- [Tutorial: Create a project template](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-project-template)
+- https://github.com/dotnet/sdk/blob/main/template_feed/Microsoft.DotNet.Common.ProjectTemplates.9.0/Microsoft.DotNet.Common.ProjectTemplates.9.0.csproj
+- [Google: template.json tags type solution](https://www.google.com/search?q=template.json+tags+type+solution)
+- https://github.com/dotnet/templating/tree/main/dotnet-template-samples/content/05-multi-project
+- [Create dotnet new template with multiple projects](https://medium.com/@stoyanshopov032/create-dotnet-new-template-with-multiple-projects-5df240ed81b4)
+- [How to create your own templates for dotnet new](https://devblogs.microsoft.com/dotnet/how-to-create-your-own-templates-for-dotnet-new/)
+- https://github.com/dotnet/dotnet-template-samples
+- https://github.com/dotnet/dotnet-template-samples/tree/master/05-multi-project
+- [Create Solution Template - group of projects #611](https://github.com/dotnet/templating/issues/611)
