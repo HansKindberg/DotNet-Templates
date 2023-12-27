@@ -60,19 +60,36 @@
 		"00000000-0000-0000-0000-000000000039",
 		"00000000-0000-0000-0000-000000000040"
 	],
-	"postActions": [
-		{
-			// https://github.com/dotnet/templating/issues/1663
-			// https://github.com/dotnet/templating/issues/765
-			"actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
-			"args": {
-				"args": "Remove-Item -Force -Recurse \".vs\"",
-				"executable": "powershell"
-			},
-			"continueOnError": false,
-			"manualInstructions": []
-		}
-	],
+
+
+
+
+
+
+
+
+	// WE MAY PUT THIS IN THE SEPARATE SOLUTION-TEMPLATES - **/.template.config/Transform.Template.json
+	//////////////////////"postActions": [
+	//////////////////////	{
+	//////////////////////		// https://github.com/dotnet/templating/issues/1663
+	//////////////////////		// https://github.com/dotnet/templating/issues/765
+	//////////////////////		"actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+	//////////////////////		"args": {
+	//////////////////////			"args": "Remove-Item -Force -Recurse \".vs\"",
+	//////////////////////			"executable": "powershell"
+	//////////////////////		},
+	//////////////////////		"continueOnError": false,
+	//////////////////////		"manualInstructions": []
+	//////////////////////	}
+	//////////////////////],
+
+
+
+
+
+
+
+
 	"preferNameDirectory": true,
 	"primaryOutputs": [
 		{

@@ -76,7 +76,54 @@ Creating solutions with the templates gives a ".vs" folder in the root. Don't kn
 
 ### 1.4 Run
 
+Small, Medium, Large etc. explanation
+
+#### 1.4.1 NuGet-Package-Large
+
+	dotnet new hk-nuget-package-l --name MyCompany.NuGetPackage
+
+#### 1.4.2 NuGet-Package-Medium
+
+	dotnet new hk-nuget-package-m --name MyCompany.NuGetPackage
+
+#### 1.4.3 NuGet-Package-Small
+
+	dotnet new hk-nuget-package-s --name MyCompany.NuGetPackage
+
+
+
+
+
+
+
+<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+#### 1.4.1 NuGet-Package-Large
+
+	dotnet new hk-nuget-package-l --name MyCompany.NuGetPackage --allow-scripts yes
+
+#### 1.4.2 NuGet-Package-Medium
+
+	dotnet new hk-nuget-package-m --name MyCompany.NuGetPackage --allow-scripts yes
+
+#### 1.4.3 NuGet-Package-Small
+
+	dotnet new hk-nuget-package-s --name MyCompany.NuGetPackage --allow-scripts yes
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+
+
+
+
+
+
+
+
+
+
 dotnet new blazorbffoidc -n YourCompany.Bff --HttpsPortCustom 44348
+
+
+
+
 
 Use the -n or --name parameter to change the name of the output created. This string is also used to substitute the namespace name in the .cs file for the project.
 
