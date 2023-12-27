@@ -71,7 +71,7 @@ Uninstall:
 
 	dotnet new uninstall <PATH>
 
-Where <PATH> is the path to the folder containing .template.config.
+Where `<PATH>` is the path to the folder containing .template.config.
 
 
 
