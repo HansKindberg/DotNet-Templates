@@ -34,7 +34,7 @@
 		<None Include="Common/.template.config/Solution.Template.json" />
 		<None Include="Common/Solution.Empty.sln" />
 		<None Include="Common/**/*" Exclude="Common/**/.vs/**;Common/**/bin/**;Common/**/obj/**;Common/**/*.csproj.user" />
-		<!-- Common - begin -->
+		<!-- Common - end -->
 		<!-- Content - begin -->
 		<Content Include="Content/**/*" Exclude="Content/**/.vs/**;Content/**/bin/**;Content/**/obj/**">
 			<PackagePath>content</PackagePath>
@@ -42,11 +42,6 @@
 		<Content Remove="Content/**/Transform.Template.json" />
 		<None Remove="Content/**/*" />
 		<None Include="Content/**/Transform.Template.json" />
-
-
-		<Content Remove="Content/ASPNET-*/**/*" />
-
-		
 		<!-- Content - end -->
 		<None Include="ReadMe.md" Pack="true" PackagePath="" />
 	</ItemGroup>

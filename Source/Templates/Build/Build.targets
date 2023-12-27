@@ -1,5 +1,38 @@
 <Project>
 	<ItemDefinitionGroup>
+		<AspNetRazorProject>
+			<DirectoryBuild>false</DirectoryBuild>
+			<Pipeline>false</Pipeline>
+			<Tests>false</Tests>
+		</AspNetRazorProject>
+	</ItemDefinitionGroup>
+	<ItemGroup>
+		<AspNetRazorProject Include="Content/AspNet-Razor-Large">
+			<DirectoryBuild>true</DirectoryBuild>
+			<Pipeline>true</Pipeline>
+			<Tests>true</Tests>
+		</AspNetRazorProject>
+		<AspNetRazorProject Include="Content/AspNet-Razor-Medium">
+			<DirectoryBuild>true</DirectoryBuild>
+			<Tests>true</Tests>
+		</AspNetRazorProject>
+		<AspNetRazorProject Include="Content/AspNet-Razor-Small" />
+	</ItemGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<ItemDefinitionGroup>
 		<NuGetPackageProject>
 			<DirectoryBuild>false</DirectoryBuild>
 			<Pipeline>false</Pipeline>
@@ -18,8 +51,6 @@
 		</NuGetPackageProject>
 		<NuGetPackageProject Include="Content/NuGet-Package-Small" />
 	</ItemGroup>
-
-
 
 
 
