@@ -102,8 +102,14 @@
 
 
 
-
-
+	<Target Name="PrepareAspNetRazor" BeforeTargets="Transform">
+		<Message Importance="high" Text="Prepare: %(AspNetRazorProject.Identity)" />
+		<Copy DestinationFolder="%(AspNetRazorProject.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config;Common/ReadMe.md" />
+		<Copy DestinationFolder="%(AspNetRazorProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
+		<Copy Condition="%(AspNetRazorProject.DirectoryBuild)" DestinationFolder="%(AspNetRazorProject.Identity)" SourceFiles="Common/NuGet-Package/Directory.Build.props;Common/Directory.Build.targets" />
+		<Copy Condition="%(AspNetRazorProject.DirectoryBuild)" DestinationFolder="%(AspNetRazorProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/Project.csproj" />
+		<Copy Condition="%(AspNetRazorProject.Pipeline)" DestinationFolder="%(AspNetRazorProject.Identity)" SourceFiles="Common/NuGet-Package/Build.yml;Common/NuGet-Package/Deploy.yml;Common/NuGet-Package/Pipeline.yml;Common/NuGet-Package/Variables.yml" />
+	</Target>
 	<Target Name="PrepareNuGetPackages" BeforeTargets="Transform">
 		<Message Importance="high" Text="Prepare: %(NuGetPackageProject.Identity)" />
 		<Copy DestinationFolder="%(NuGetPackageProject.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config;Common/ReadMe.md" />
