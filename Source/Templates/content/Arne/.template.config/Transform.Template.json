@@ -1,0 +1,17 @@
+{
+	"classifications": [
+		"AspNetCore",
+		"Razor",
+		"Solution",
+		"Web"
+	],
+	"identity": "Arne-Identity",
+	"name": "Arne-Name",
+	"primaryOutputs": [
+		{
+			"path": "Arne.sln"
+		}
+	],
+	"shortName": "arne",
+	"sourceName": "Arne"
+}

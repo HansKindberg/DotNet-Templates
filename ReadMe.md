@@ -53,13 +53,21 @@ How to install/uninstall during development.
 
 #### 1.2.1 Locally built NuGet-package
 
+Install:
+
 	dotnet new install Blazor.BFF.OpenIDConnect.Template.3.0.0.nupkg
+
+Uninstall:
 
 	dotnet new uninstall Blazor.BFF.OpenIDConnect.Template.3.0.0.nupkg
 
 #### 1.2.2 Local folder
 
+Install:
+
 	dotnet new install <PATH>
+
+Uninstall:
 
 	dotnet new uninstall <PATH>
 

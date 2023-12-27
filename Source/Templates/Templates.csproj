@@ -27,20 +27,25 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Remove="**\*" />
+		<Compile Remove="**/*" />
 		<!-- Common - begin -->
-		<Content Remove="Common\**\*" />
-		<None Include="Common\.template.config\Solution.Template.json" />
-		<None Include="Common\Solution.Empty.sln" />
-		<None Remove="Common\**\*" />
-		<None Include="Common\**\*" Exclude="Common\**\bin\**;Common\**\obj\**;Common\**\*.csproj.user" />
+		<Content Remove="Common/**/*" />
+		<None Include="Common/.template.config/Solution.Template.json" />
+		<None Include="Common/Solution.Empty.sln" />
+		<None Remove="Common/**/*" />
+		<None Include="Common/**/*" Exclude="Common/**/bin/**;Common/**/obj/**;Common/**/*.csproj.user" />
 		<!-- Common - begin -->
 		<!-- content - begin -->
 		<Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**">
 			<PackagePath>content</PackagePath>
 		</Content>
-		<Content Remove="content\**\Transform.Template.json" />
-		<None Include="content\**\Transform.Template.json" />
+		<Content Remove="content/**/Transform.Template.json" />
+		<None Include="content/**/Transform.Template.json" />
+
+
+		<Content Remove="content/ASPNET-*/**/*" />
+
+		
 		<!-- content - end -->
 		<None Include="ReadMe.md" Pack="true" PackagePath="" />
 	</ItemGroup>
