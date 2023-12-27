@@ -1,3 +1,17 @@
 {
+	"classifications": [
+		"AspNetCore",
+		"Razor",
+		"Solution",
+		"Web"
+	],
+	"identity": "Blazor.BFF.OpenIDConnect.Template",
+	"name": "ASP.NET Core Blazor BFF hosted WASM OpenID Connect",
+	"primaryOutputs": [
+		{
+			"path": "BlazorBffOpenIDConnect.sln"
+		}
+	],
+	"shortName": "blazorbffoidc",
 	"sourceName": "MyCommand - 1"
 }

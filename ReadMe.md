@@ -45,7 +45,38 @@ Got help by looking at:
 
 - https://github.com/dotnet/sdk/blob/main/template_feed/Microsoft.DotNet.Common.ProjectTemplates.9.0/Microsoft.DotNet.Common.ProjectTemplates.9.0.csproj
 
-### 1.2 Links
+### 1.2 Install
+
+- [dotnet new install](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-install)
+
+How to install during development.
+
+Locally built nupkg:
+
+	dotnet new install Blazor.BFF.OpenIDConnect.Template.3.0.0.nupkg
+
+Local folder:
+
+	dotnet new install <PATH>
+
+Where <PATH> is the path to the folder containing .template.config.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 1.3 Links
 
 - [Package authoring best practices](https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices)
 

@@ -1,6 +1,7 @@
 {
 	"$schema": "http://json.schemastore.org/template",
 	"author": "Hans Kindberg",
+	"preferNameDirectory": true,
 	"tags": {
 		"language": "C#",
 		"type": "solution"
