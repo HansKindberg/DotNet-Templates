@@ -7,16 +7,16 @@
 		</NuGetPackageProject>
 	</ItemDefinitionGroup>
 	<ItemGroup>
-		<NuGetPackageProject Include="NuGet-Package-Small" />
-		<NuGetPackageProject Include="NuGet-Package-Medium">
-			<DirectoryBuild>true</DirectoryBuild>
-			<Tests>true</Tests>
-		</NuGetPackageProject>
-		<NuGetPackageProject Include="NuGet-Package-Large">
+		<NuGetPackageProject Include="Content/NuGet-Package-Large">
 			<DirectoryBuild>true</DirectoryBuild>
 			<Pipeline>true</Pipeline>
 			<Tests>true</Tests>
 		</NuGetPackageProject>
+		<NuGetPackageProject Include="Content/NuGet-Package-Medium">
+			<DirectoryBuild>true</DirectoryBuild>
+			<Tests>true</Tests>
+		</NuGetPackageProject>
+		<NuGetPackageProject Include="Content/NuGet-Package-Small" />
 	</ItemGroup>
 
 
@@ -75,12 +75,12 @@
 
 	<Target Name="PrepareNuGetPackages" BeforeTargets="Transform">
 		<Message Importance="high" Text="Prepare: %(NuGetPackageProject.Identity)" />
-		<Copy DestinationFolder="Content/%(NuGetPackageProject.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config;Common/ReadMe.md" />
-		<Copy DestinationFolder="Content/%(NuGetPackageProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
-		<Copy Condition="%(NuGetPackageProject.DirectoryBuild)" DestinationFolder="Content/%(NuGetPackageProject.Identity)" SourceFiles="Common/NuGet-Package/Directory.Build.props;Common/Directory.Build.targets" />
-		<Copy Condition="%(NuGetPackageProject.DirectoryBuild)" DestinationFolder="Content/%(NuGetPackageProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/Project.csproj" />
-		<Copy Condition="%(NuGetPackageProject.Pipeline)" DestinationFolder="Content/%(NuGetPackageProject.Identity)" SourceFiles="Common/NuGet-Package/Build.yml;Common/NuGet-Package/Deploy.yml;Common/NuGet-Package/Pipeline.yml;Common/NuGet-Package/Variables.yml" />
-		<!--<Copy Condition="%(NuGetPackageProject.Tests)" DestinationFolder="Content/%(NuGetPackageProject.Identity)" SourceFiles="Common/NuGet-Package/Directory.Build.props;Common/Directory.Build.targets" />-->
+		<Copy DestinationFolder="%(NuGetPackageProject.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config;Common/ReadMe.md" />
+		<Copy DestinationFolder="%(NuGetPackageProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
+		<Copy Condition="%(NuGetPackageProject.DirectoryBuild)" DestinationFolder="%(NuGetPackageProject.Identity)" SourceFiles="Common/NuGet-Package/Directory.Build.props;Common/Directory.Build.targets" />
+		<Copy Condition="%(NuGetPackageProject.DirectoryBuild)" DestinationFolder="%(NuGetPackageProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/Project.csproj" />
+		<Copy Condition="%(NuGetPackageProject.Pipeline)" DestinationFolder="%(NuGetPackageProject.Identity)" SourceFiles="Common/NuGet-Package/Build.yml;Common/NuGet-Package/Deploy.yml;Common/NuGet-Package/Pipeline.yml;Common/NuGet-Package/Variables.yml" />
+		<!--<Copy Condition="%(NuGetPackageProject.Tests)" DestinationFolder="%(NuGetPackageProject.Identity)" SourceFiles="Common/NuGet-Package/Directory.Build.props;Common/Directory.Build.targets" />-->
 
 
 
@@ -107,6 +107,7 @@
 
 	</Target>
 	<Target Name="Transform" BeforeTargets="Build">
-		<Message Importance="high" Text="TRANSFORM: %(NuGetPackageProject.Identity)" />
+		<Message Importance="high" Text="Transform: %(NuGetPackageProject.Identity)" />
+		<TransformTask Destination="%(NuGetPackageProject.Identity)/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="%(NuGetPackageProject.Identity)/.template.config/Transform.Template.json" />
 	</Target>
 </Project>
