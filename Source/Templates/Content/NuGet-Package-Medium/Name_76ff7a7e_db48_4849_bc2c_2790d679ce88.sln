@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{61486A42-9D0E-408D-B670-3714AFB85F5B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{00000000-0000-0000-0000-000000000001}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{61486A42
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{C4092CC2-BF45-4A0D-83ED-C3E0F2929DE1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{00000000-0000-0000-0000-000000000002}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{01C2BA3D-703E-4340-80C7-23C6C7EEBD34}"
 	ProjectSection(SolutionItems) = preProject
@@ -47,7 +47,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{93792EC7-7B62-4840-B2B1-A94342B4F98C} = {C4092CC2-BF45-4A0D-83ED-C3E0F2929DE1}
+		{93792EC7-7B62-4840-B2B1-A94342B4F98C} = {00000000-0000-0000-0000-000000000002}
 		{57F2C2A2-ED5A-460B-9FB7-3C2684BF3F5A} = {01C2BA3D-703E-4340-80C7-23C6C7EEBD34}
 		{77E33E93-E00A-4886-B6DC-6B379C8BF30A} = {01C2BA3D-703E-4340-80C7-23C6C7EEBD34}
 	EndGlobalSection
