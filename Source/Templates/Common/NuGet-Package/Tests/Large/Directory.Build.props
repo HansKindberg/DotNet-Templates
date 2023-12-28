@@ -2,5 +2,7 @@
 	<Import Project="../Directory.Build.props" />
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+		<TargetFrameworks>net462;net6.0;net7.0;net8.0</TargetFrameworks>
 	</PropertyGroup>
 </Project>

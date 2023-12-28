@@ -10,6 +10,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="../../Source/{0}/{0}.csproj" />
+		<ProjectReference Include="../../Source/Project/Project.csproj" />
 	</ItemGroup>
 </Project>
