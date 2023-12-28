@@ -5,7 +5,7 @@
 		"Solution",
 		"Web"
 	],
-	"identity": "HK-AspNet-Razor-Large",
-	"name": "HK-AspNet-Razor-Large",
-	"shortName": "hk-aspnet-razor-l"
+	"identity": "HK-AspNet-Razor-Small",
+	"name": "HK-AspNet-Razor-Small",
+	"shortName": "hk-aspnet-razor-s"
 }

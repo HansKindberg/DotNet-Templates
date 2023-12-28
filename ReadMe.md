@@ -1,51 +1,5 @@
 # DotNet-Templates
 
-
-
-
-
-
-
-
-
-
-
-
-
-## BACKUP
-		<!--<ItemGroup>
-			--><!-- https://gist.github.com/robatwilliams/6512233 --><!--
-			<Projects Include="$([System.IO.Directory]::GetDirectories('content'))" />
-		</ItemGroup>
-		
-			<Message Importance="high" Text="%(Projects.Identity)" />
-			--><!--
-		--><!--
-		--><!--
-			https://www.jrdodds.com/blog/2021/8/23/msbuild-metadata-doesnt-support-string-instance-methods
-			<HasSuffix>$([System.String]::Copy('%(Filename)').Endswith('$(suffix)'))</HasSuffix>
-		--><!--
-		<Copy Condition="$([System.String]::Copy('%(Projects.Identity)').EndsWith('-Pages'))" DestinationFolder="%(Projects.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/Directory.Build.props;Common/Directory.Build.targets;Common/NuGet.config;Common/ReadMe.md" />
-		<TransformTask Condition="$([System-->.String]::Copy('%(Projects.Identity)').EndsWith('Arne'))" Destination="%(Projects.Identity)/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="%(Projects.Identity)/.template.config/Transform.Template.json" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 A Template-package (NuGet) for creating items/projects/solutions in dotnet / Visual Studio. For the moment this Template-package only consists of multi-project / solution templates.
 
 For the moment, because of an issue, the templates are not enabled in Visual Studio.
@@ -257,13 +211,15 @@ How to install/uninstall during development.
 
 #### 3.2.1 Locally built NuGet-package
 
+cd to Source\Templates\bin\Debug.
+
 Install:
 
-	dotnet new install Blazor.BFF.OpenIDConnect.Template.3.0.0.nupkg
+	dotnet new install HansKindberg-DotNet-Templates.0.0.1-alpha.1.nupkg
 
 Uninstall:
 
-	dotnet new uninstall Blazor.BFF.OpenIDConnect.Template.3.0.0.nupkg
+	dotnet new uninstall HansKindberg-DotNet-Templates
 
 #### 3.2.2 Local folder
 
@@ -277,29 +233,25 @@ Uninstall:
 
 Where `<PATH>` is the path to the folder containing .template.config.
 
+### 3.3 Try the templates
 
+cd to your project directory.
 
+	dotnet new hk-aspnet-razor-l --name hk-aspnet-razor-l
 
+	dotnet new hk-aspnet-razor-m --name hk-aspnet-razor-m
 
+	dotnet new hk-aspnet-razor-s --name hk-aspnet-razor-s
 
+	dotnet new hk-nuget-package-l --name hk.nuget.package.l
 
+	dotnet new hk-nuget-package-m --name hk.nuget.package.m
 
-
-
-
-
-
-
-
+	dotnet new hk-nuget-package-s --name hk.nuget.package.s
 
 ### 3.3 Links
 
 - [Package authoring best practices](https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices)
-
-
-
-
-
 
 ## 4 Thanks Damien Bowden
 
