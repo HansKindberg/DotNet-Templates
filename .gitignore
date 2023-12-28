@@ -411,5 +411,3 @@ Source/Templates/Content/*/ReadMe.md
 Source/Templates/Content/*/Variables.yml
 
 Source/Templates/Content/NuGet-Package*/Source/Project/ReadMe.md
-#Source/Templates/Content/NuGet-Package-Large/Source/Project/Project.csproj
-#Source/Templates/Content/NuGet-Package-Medium/Source/Project/Project.csproj

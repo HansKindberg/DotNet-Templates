@@ -41,6 +41,38 @@
 		<Content Remove="Content/**/Transform.Template.json" />
 		<None Remove="Content/**/*" />
 		<None Include="Content/**/Transform.Template.json" />
+		<Content Remove="Content\AspNet-Razor-Large\Tests\.editorconfig" />
+		<Content Remove="Content\AspNet-Razor-Large\Tests\Directory.Build.props" />
+		<Content Remove="Content\AspNet-Razor-Large\Tests\Directory.Build.targets" />
+		<Content Remove="Content\AspNet-Razor-Large\Tests\Integration-tests\Integration-tests.csproj" />
+		<Content Remove="Content\AspNet-Razor-Large\Tests\Unit-tests\Unit-tests.csproj" />
+		<Content Remove="Content\AspNet-Razor-Medium\Tests\.editorconfig" />
+		<Content Remove="Content\AspNet-Razor-Medium\Tests\Integration-tests\Integration-tests.csproj" />
+		<Content Remove="Content\AspNet-Razor-Medium\Tests\Unit-tests\Unit-tests.csproj" />
+		<Content Remove="Content\NuGet-Package-Large\Tests\.editorconfig" />
+		<Content Remove="Content\NuGet-Package-Large\Tests\Directory.Build.props" />
+		<Content Remove="Content\NuGet-Package-Large\Tests\Directory.Build.targets" />
+		<Content Remove="Content\NuGet-Package-Large\Tests\Integration-tests\Integration-tests.csproj" />
+		<Content Remove="Content\NuGet-Package-Large\Tests\Unit-tests\Unit-tests.csproj" />
+		<Content Remove="Content\NuGet-Package-Medium\Tests\.editorconfig" />
+		<Content Remove="Content\NuGet-Package-Medium\Tests\Integration-tests\Integration-tests.csproj" />
+		<Content Remove="Content\NuGet-Package-Medium\Tests\Unit-tests\Unit-tests.csproj" />
+		<None Include="Content\AspNet-Razor-Large\Tests\.editorconfig" />
+		<None Include="Content\AspNet-Razor-Large\Tests\Directory.Build.props" />
+		<None Include="Content\AspNet-Razor-Large\Tests\Directory.Build.targets" />
+		<None Include="Content\AspNet-Razor-Large\Tests\Integration-tests\Integration-tests.csproj" />
+		<None Include="Content\AspNet-Razor-Large\Tests\Unit-tests\Unit-tests.csproj" />
+		<None Include="Content\AspNet-Razor-Medium\Tests\.editorconfig" />
+		<None Include="Content\AspNet-Razor-Medium\Tests\Integration-tests\Integration-tests.csproj" />
+		<None Include="Content\AspNet-Razor-Medium\Tests\Unit-tests\Unit-tests.csproj" />
+		<None Include="Content\NuGet-Package-Large\Tests\.editorconfig" />
+		<None Include="Content\NuGet-Package-Large\Tests\Directory.Build.props" />
+		<None Include="Content\NuGet-Package-Large\Tests\Directory.Build.targets" />
+		<None Include="Content\NuGet-Package-Large\Tests\Integration-tests\Integration-tests.csproj" />
+		<None Include="Content\NuGet-Package-Large\Tests\Unit-tests\Unit-tests.csproj" />
+		<None Include="Content\NuGet-Package-Medium\Tests\.editorconfig" />
+		<None Include="Content\NuGet-Package-Medium\Tests\Integration-tests\Integration-tests.csproj" />
+		<None Include="Content\NuGet-Package-Medium\Tests\Unit-tests\Unit-tests.csproj" />
 		<!-- Content - end -->
 		<None Include="ReadMe.md" Pack="true" PackagePath="" />
 	</ItemGroup>
