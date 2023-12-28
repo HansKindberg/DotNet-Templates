@@ -52,6 +52,6 @@
 			<Message Importance="high" Text="Transform: %(Template.Identity) - %(Template.Filename) - %(Template.Directory) - %(Template.RootDir)" />
 		-->
 		<!--<Message Importance="high" Text="Transform: %(NuGetPackageProject.Identity)" />-->
-		<!--<TransformTask Destination="%(NuGetPackageProject.Identity)/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="%(NuGetPackageProject.Identity)/.template.config/Transform.Template.json" />-->
+		<TransformTask Destination="%(Template.Identity)/.template.config/template.json" Source="Common/.template.config/Solution.Template.json" Transform="%(Template.Identity)/.template.config/Transform.Template.json" />
 	</Target>
 </Project>
