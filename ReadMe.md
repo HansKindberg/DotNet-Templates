@@ -249,7 +249,16 @@ cd to your project directory.
 
 	dotnet new hk-nuget-package-s --name hk.nuget.package.s
 
-### 3.3 Links
+### 3.4 Important
+
+We have experienced problems when the solution-files included in the templates are not **UTF-8-BOM** encoded. If we make changes in the *.sln files we should verify that they are **UTF-8-BOM** encoded. If not, make them **UTF-8-BOM** encoded with Notepadd++ for example.
+
+This seems to happen even if we have this in .editorconfig:
+
+	[*.{cshtml,csproj,sln}]
+	charset = utf-8-bom
+
+### 3.5 Links
 
 - [Package authoring best practices](https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices)
 
