@@ -76,19 +76,60 @@ Creating solutions with the templates gives a ".vs" folder in the root. Don't kn
 
 ### 1.4 Run
 
-Small, Medium, Large etc. explanation
+Small, Medium, Large etc. explanation.
 
-#### 1.4.1 NuGet-Package-Large
+The prefix **HK** is for **Hans Kindberg**, my initials.
 
-	dotnet new hk-nuget-package-l --name MyCompany.NuGetPackage
+#### 1.4.1 HK-AspNet-Razor-Large
 
-#### 1.4.2 NuGet-Package-Medium
+	dotnet new hk-aspnet-razor-l --name Example-Site
 
-	dotnet new hk-nuget-package-m --name MyCompany.NuGetPackage
+or
 
-#### 1.4.3 NuGet-Package-Small
+	dotnet new HK-AspNet-Razor-Large --name Example-Site
 
-	dotnet new hk-nuget-package-s --name MyCompany.NuGetPackage
+#### 1.4.2 HK-AspNet-Razor-Medium
+
+	dotnet new hk-aspnet-razor-m --name Example-Site
+
+or
+
+	dotnet new HK-AspNet-Razor-Medium --name Example-Site
+
+#### 1.4.3 HK-AspNet-Razor-Small
+
+	dotnet new hk-aspnet-razor-s --name Example-Site
+
+or
+
+	dotnet new HK-AspNet-Razor-Small --name Example-Site
+
+#### 1.4.4 HK-NuGet-Package-Large
+
+	dotnet new hk-nuget-package-l --name Example.NuGetPackage
+
+or
+
+	dotnet new HK-NuGet-Package-Large --name Example.NuGetPackage
+
+#### 1.4.5 HK-NuGet-Package-Medium
+
+	dotnet new hk-nuget-package-m --name Example.NuGetPackage
+
+or
+
+	dotnet new HK-NuGet-Package-Medium --name Example.NuGetPackage
+
+#### 1.4.6 HK-NuGet-Package-Small
+
+	dotnet new hk-nuget-package-s --name Example.NuGetPackage
+
+or
+
+	dotnet new HK-NuGet-Package-Small --name Example.NuGetPackage
+
+
+
 
 
 
@@ -133,9 +174,39 @@ Use the -n or --name parameter to change the name of the output created. This st
 
 
 
+## 2 Solution structure
+
+### 2.1 HK-AspNet-Razor-Large
+
+### 2.2 HK-AspNet-Razor-Medium
+
+### 2.3 HK-AspNet-Razor-Small
+
+### 2.4 HK-NuGet-Package-Large
+
+### 2.5 HK-NuGet-Package-Medium
+
+### 2.6 HK-NuGet-Package-Small
 
 
-## 2 Development
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 3 Development
 
 I am using Visual Studio 2022 - 17.8.3 when starting this project.
 
@@ -147,7 +218,7 @@ To have "templatepack" you need to install [Microsoft.TemplateEngine.Authoring.T
 
 	dotnet new install Microsoft.TemplateEngine.Authoring.Templates
 
-### 2.1 Adjustments
+### 3.1 Adjustments
 
 After creating the project with:
 
@@ -178,13 +249,13 @@ Got help by looking at:
 
 - https://github.com/dotnet/sdk/blob/main/template_feed/Microsoft.DotNet.Common.ProjectTemplates.9.0/Microsoft.DotNet.Common.ProjectTemplates.9.0.csproj
 
-### 2.2 Install / uninstall
+### 3.2 Install / uninstall
 
 - [dotnet new install](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-install)
 
 How to install/uninstall during development.
 
-#### 2.2.1 Locally built NuGet-package
+#### 3.2.1 Locally built NuGet-package
 
 Install:
 
@@ -194,7 +265,7 @@ Uninstall:
 
 	dotnet new uninstall Blazor.BFF.OpenIDConnect.Template.3.0.0.nupkg
 
-#### 2.2.2 Local folder
+#### 3.2.2 Local folder
 
 Install:
 
@@ -221,7 +292,7 @@ Where `<PATH>` is the path to the folder containing .template.config.
 
 
 
-### 2.3 Links
+### 3.3 Links
 
 - [Package authoring best practices](https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices)
 
@@ -230,7 +301,7 @@ Where `<PATH>` is the path to the folder containing .template.config.
 
 
 
-## 3 Thanks Damien Bowden
+## 4 Thanks Damien Bowden
 
 His article/works led me the way to build "solution"-templates:
 
@@ -238,7 +309,7 @@ His article/works led me the way to build "solution"-templates:
 - [NuGet – Blazor.BFF.OpenIDConnect.Template](https://www.nuget.org/packages/Blazor.BFF.OpenIDConnect.Template)
 - [GitHub – Blazor.BFF.OpenIDConnect.Template](https://github.com/damienbod/Blazor.BFF.OpenIDConnect.Template)
 
-## 4 Links
+## 5 Links
 
 - https://github.com/sayedihashimi/template-sample
 - https://github.com/dotnet/templating
