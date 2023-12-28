@@ -12,13 +12,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{61486A42
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{C4092CC2-BF45-4A0D-83ED-C3E0F2929DE1}"
+	ProjectSection(SolutionItems) = preProject
+		Source\.dockerignore = Source\.dockerignore
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{01C2BA3D-703E-4340-80C7-23C6C7EEBD34}"
 	ProjectSection(SolutionItems) = preProject
 		Tests\.editorconfig = Tests\.editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project", "Source\Project\Project.csproj", "{93792EC7-7B62-4840-B2B1-A94342B4F98C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Application\Application.csproj", "{93792EC7-7B62-4840-B2B1-A94342B4F98C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integration-tests", "Tests\Integration-tests\Integration-tests.csproj", "{57F2C2A2-ED5A-460B-9FB7-3C2684BF3F5A}"
 EndProject

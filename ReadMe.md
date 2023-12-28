@@ -328,3 +328,4 @@ His article/works led me the way to build "solution"-templates:
 - https://github.com/dotnet/dotnet-template-samples
 - https://github.com/dotnet/dotnet-template-samples/tree/master/05-multi-project
 - [Create Solution Template - group of projects #611](https://github.com/dotnet/templating/issues/611)
+- [How does project system determine if the project is ASPNET or generic C#? #3079](https://github.com/dotnet/project-system/issues/3079)

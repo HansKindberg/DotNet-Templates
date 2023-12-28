@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{00000000-0000-0000-0000-000000000001}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{61486A42-9D0E-408D-B670-3714AFB85F5B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		NuGet.config = NuGet.config
+		ReadMe.md = ReadMe.md
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project", "Source\Project\Project.csproj", "{00000000-0000-0000-0000-000000000002}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{C4092CC2-BF45-4A0D-83ED-C3E0F2929DE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project", "Source\Project\Project.csproj", "{93792EC7-7B62-4840-B2B1-A94342B4F98C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,18 +21,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{00000000-0000-0000-0000-000000000002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00000000-0000-0000-0000-000000000002}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00000000-0000-0000-0000-000000000002}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00000000-0000-0000-0000-000000000002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{00000000-0000-0000-0000-000000000002} = {00000000-0000-0000-0000-000000000001}
+		{93792EC7-7B62-4840-B2B1-A94342B4F98C} = {C4092CC2-BF45-4A0D-83ED-C3E0F2929DE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {00000000-0000-0000-0000-000000000003}
+		SolutionGuid = {B5598A26-490B-4FFC-BE13-080A72F3F622}
 	EndGlobalSection
 EndGlobal
