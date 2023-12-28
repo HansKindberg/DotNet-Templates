@@ -410,4 +410,8 @@ Source/Templates/Content/*/Pipeline.yml
 Source/Templates/Content/*/ReadMe.md
 Source/Templates/Content/*/Variables.yml
 
+Source/Templates/Content/AspNet-Razor*/.dockerignore*
+Source/Templates/Content/AspNet-Razor*/Source/Application/*
+!Source/Templates/Content/AspNet-Razor*/Source/Application/Application.csproj
+!Source/Templates/Content/AspNet-Razor*/Source/Application/Dockerfile
 Source/Templates/Content/NuGet-Package*/Source/Project/ReadMe.md

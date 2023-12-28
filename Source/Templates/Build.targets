@@ -17,6 +17,15 @@
 		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').EndsWith('-Large')) AND !$([System.String]::Copy('%(Template.Filename)').StartsWith('NuGet-Package'))" DestinationFolder="%(Template.Identity)" SourceFiles="Common/Directory.Build.props" />
 		
 		<!-- AspNet-Razor -->
+		<ItemGroup>
+			<AspNetRazorFile Include="Common/AspNet-Razor/Source/Application/**/*" Exclude="Common/AspNet-Razor/Source/Application/Application.csproj" />
+		</ItemGroup>
+		<Copy DestinationFolder="Content/AspNet-Razor-Large/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Medium/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Small/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Large" SourceFiles="Common/AspNet-Razor/.dockerignore" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Medium" SourceFiles="Common/AspNet-Razor/.dockerignore" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Small" SourceFiles="Common/AspNet-Razor/.dockerignore" />
 
 		<!-- NuGet-Package -->
 		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').StartsWith('NuGet-Package'))" DestinationFolder="%(Template.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
