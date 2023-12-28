@@ -4,6 +4,8 @@ A Template-package (NuGet) for creating items/projects/solutions in dotnet / Vis
 
 For the moment, because of an issue, the templates are not enabled in Visual Studio.
 
+The templates are not yet published on nuget.org.
+
 ## 1 Using the templates
 
 ### 1.1 Install
@@ -14,119 +16,35 @@ For the moment, because of an issue, the templates are not enabled in Visual Stu
 
 	dotnet new uninstall HansKindberg-DotNet-Templates
 
-### 1.3 Issue
+### 1.3 Run
 
-Creating solutions with the templates gives a ".vs" folder in the root. Don't know why. This is for the moment removed with a **postAction**. It should be possible to fix it in another way. But for the moment...
-
-
-
-
-
-
-
-
-
-
-
-### 1.4 Run
-
-Small, Medium, Large etc. explanation.
+Small, Medium, Large etc. explanation should be here...
 
 The prefix **HK** is for **Hans Kindberg**, my initials.
 
-#### 1.4.1 HK-AspNet-Razor-Large
+#### 1.3.1 HK-AspNet-Razor-Large
 
 	dotnet new hk-aspnet-razor-l --name Example-Site
 
-or
-
-	dotnet new HK-AspNet-Razor-Large --name Example-Site
-
-#### 1.4.2 HK-AspNet-Razor-Medium
+#### 1.3.2 HK-AspNet-Razor-Medium
 
 	dotnet new hk-aspnet-razor-m --name Example-Site
 
-or
-
-	dotnet new HK-AspNet-Razor-Medium --name Example-Site
-
-#### 1.4.3 HK-AspNet-Razor-Small
+#### 1.3.3 HK-AspNet-Razor-Small
 
 	dotnet new hk-aspnet-razor-s --name Example-Site
 
-or
-
-	dotnet new HK-AspNet-Razor-Small --name Example-Site
-
-#### 1.4.4 HK-NuGet-Package-Large
+#### 1.3.4 HK-NuGet-Package-Large
 
 	dotnet new hk-nuget-package-l --name Example.NuGetPackage
 
-or
-
-	dotnet new HK-NuGet-Package-Large --name Example.NuGetPackage
-
-#### 1.4.5 HK-NuGet-Package-Medium
+#### 1.3.5 HK-NuGet-Package-Medium
 
 	dotnet new hk-nuget-package-m --name Example.NuGetPackage
 
-or
-
-	dotnet new HK-NuGet-Package-Medium --name Example.NuGetPackage
-
-#### 1.4.6 HK-NuGet-Package-Small
+#### 1.3.6 HK-NuGet-Package-Small
 
 	dotnet new hk-nuget-package-s --name Example.NuGetPackage
-
-or
-
-	dotnet new HK-NuGet-Package-Small --name Example.NuGetPackage
-
-
-
-
-
-
-
-
-
-
-<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-#### 1.4.1 NuGet-Package-Large
-
-	dotnet new hk-nuget-package-l --name MyCompany.NuGetPackage --allow-scripts yes
-
-#### 1.4.2 NuGet-Package-Medium
-
-	dotnet new hk-nuget-package-m --name MyCompany.NuGetPackage --allow-scripts yes
-
-#### 1.4.3 NuGet-Package-Small
-
-	dotnet new hk-nuget-package-s --name MyCompany.NuGetPackage --allow-scripts yes
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
-
-
-
-
-
-
-
-
-
-
-dotnet new blazorbffoidc -n YourCompany.Bff --HttpsPortCustom 44348
-
-
-
-
-
-Use the -n or --name parameter to change the name of the output created. This string is also used to substitute the namespace name in the .cs file for the project.
-
-
-
-
-
-
 
 ## 2 Solution structure
 
@@ -141,24 +59,6 @@ Use the -n or --name parameter to change the name of the output created. This st
 ### 2.5 HK-NuGet-Package-Medium
 
 ### 2.6 HK-NuGet-Package-Small
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## 3 Development
 
@@ -255,7 +155,7 @@ We have experienced problems when the solution-files included in the templates a
 
 This seems to happen even if we have this in .editorconfig:
 
-	[*.{cshtml,csproj,sln}]
+	[*.{cshtml,sln}]
 	charset = utf-8-bom
 
 ### 3.5 Links
@@ -264,7 +164,7 @@ This seems to happen even if we have this in .editorconfig:
 
 ## 4 Thanks Damien Bowden
 
-His article/works led me the way to build "solution"-templates:
+His article/work led me the way to build "solution"-templates:
 
 - [CREATING DOTNET SOLUTION AND PROJECT TEMPLATES](https://damienbod.com/2022/08/15/creating-dotnet-solution-and-project-templates/)
 - [NuGet – Blazor.BFF.OpenIDConnect.Template](https://www.nuget.org/packages/Blazor.BFF.OpenIDConnect.Template)
@@ -290,3 +190,9 @@ His article/works led me the way to build "solution"-templates:
 - https://github.com/dotnet/dotnet-template-samples/tree/master/05-multi-project
 - [Create Solution Template - group of projects #611](https://github.com/dotnet/templating/issues/611)
 - [How does project system determine if the project is ASPNET or generic C#? #3079](https://github.com/dotnet/project-system/issues/3079)
+
+## 6 BAKUP FOR A MOMENT - REMOVE LATER
+
+### 1.3 Issue
+
+Creating solutions with the templates gives a ".vs" folder in the root. Don't know why. This is for the moment removed with a **postAction**. It should be possible to fix it in another way. But for the moment...
