@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{00000000
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{00000000-0000-0000-0000-000000000002}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project", "Source\Project\Project.csproj", "{93792EC7-7B62-4840-B2B1-A94342B4F98C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project", "Source\Project\Project.csproj", "{00000000-0000-0000-0000-000000000003}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93792EC7-7B62-4840-B2B1-A94342B4F98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00000000-0000-0000-0000-000000000003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00000000-0000-0000-0000-000000000003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00000000-0000-0000-0000-000000000003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00000000-0000-0000-0000-000000000003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{93792EC7-7B62-4840-B2B1-A94342B4F98C} = {00000000-0000-0000-0000-000000000002}
+		{00000000-0000-0000-0000-000000000003} = {00000000-0000-0000-0000-000000000002}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B5598A26-490B-4FFC-BE13-080A72F3F622}
+		SolutionGuid = {00000000-0000-0000-0000-000000000004}
 	EndGlobalSection
 EndGlobal
