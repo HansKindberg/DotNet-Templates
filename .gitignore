@@ -407,4 +407,15 @@ Source/Templates/Content/AspNet-Razor*/.dockerignore*
 Source/Templates/Content/AspNet-Razor*/Source/Application/*
 !Source/Templates/Content/AspNet-Razor*/Source/Application/Application.csproj
 !Source/Templates/Content/AspNet-Razor*/Source/Application/Dockerfile
+
 Source/Templates/Content/NuGet-Package*/Source/Project/ReadMe.md
+
+Source/Templates/Content/React*/.dockerignore*
+Source/Templates/Content/React*/Source/Application/*
+!Source/Templates/Content/React*/Source/Application/Application.csproj
+!Source/Templates/Content/React*/Source/Application/Dockerfile
+
+Source/Templates/Content/Service*/.dockerignore*
+Source/Templates/Content/Service*/Source/Service/*
+!Source/Templates/Content/Service*/Source/Service/Service.csproj
+!Source/Templates/Content/Service*/Source/Service/Dockerfile

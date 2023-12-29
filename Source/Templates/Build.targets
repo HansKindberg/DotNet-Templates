@@ -26,6 +26,36 @@
 
 		<!-- NuGet-Package -->
 		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').StartsWith('NuGet-Package'))" DestinationFolder="%(Template.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
+
+		<!-- React -->
+		<!--
+		<ItemGroup>
+			<ReactFile Include="Common/React/Source/Application/**/*" Exclude="Common/React/Source/Application/Application.csproj" />
+		</ItemGroup>
+		<Copy DestinationFolder="Content/React-ExtraLarge/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
+		<Copy DestinationFolder="Content/React-Large/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
+		<Copy DestinationFolder="Content/React-Medium/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
+		<Copy DestinationFolder="Content/React-Small/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
+		-->
+		<Copy DestinationFolder="Content/React-ExtraLarge" SourceFiles="Common/React/.dockerignore" />
+		<Copy DestinationFolder="Content/React-Large" SourceFiles="Common/React/.dockerignore" />
+		<Copy DestinationFolder="Content/React-Medium" SourceFiles="Common/React/.dockerignore" />
+		<Copy DestinationFolder="Content/React-Small" SourceFiles="Common/React/.dockerignore" />
+
+		<!-- Service -->
+		<!--
+		<ItemGroup>
+			<ServiceFile Include="Common/Service/Source/Service/**/*" Exclude="Common/Service/Source/Service/Service.csproj" />
+		</ItemGroup>
+		<Copy DestinationFolder="Content/Service-ExtraLarge/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
+		<Copy DestinationFolder="Content/Service-Large/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
+		<Copy DestinationFolder="Content/Service-Medium/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
+		<Copy DestinationFolder="Content/Service-Small/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
+		-->
+		<Copy DestinationFolder="Content/Service-ExtraLarge" SourceFiles="Common/Service/.dockerignore" />
+		<Copy DestinationFolder="Content/Service-Large" SourceFiles="Common/Service/.dockerignore" />
+		<Copy DestinationFolder="Content/Service-Medium" SourceFiles="Common/Service/.dockerignore" />
+		<Copy DestinationFolder="Content/Service-Small" SourceFiles="Common/Service/.dockerignore" />
 	</Target>
 	<Target Name="Transform" BeforeTargets="Build" DependsOnTargets="Prepare">
 		<Message Importance="high" Text="Transform..." />
