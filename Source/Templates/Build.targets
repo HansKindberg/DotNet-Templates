@@ -10,12 +10,7 @@
 		<Message Importance="high" Text="Prepare..." />
 
 		<Copy DestinationFolder="%(Template.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config;Common/ReadMe.md" />
-		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').EndsWith('-Large'))" DestinationFolder="%(Template.Identity)" SourceFiles="Common/Directory.Build.targets;Common/$([System.String]::Copy('%(Template.Filename)').Replace('-Large', ''))/Build.yml;Common/$([System.String]::Copy('%(Template.Filename)').Replace('-Large', ''))/Deploy.yml;Common/$([System.String]::Copy('%(Template.Filename)').Replace('-Large', ''))/Pipeline.yml;Common/$([System.String]::Copy('%(Template.Filename)').Replace('-Large', ''))/Variables.yml" />
 
-		<!-- Directory.Build.props -->
-		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').EndsWith('-Large')) AND $([System.String]::Copy('%(Template.Filename)').StartsWith('NuGet-Package'))" DestinationFolder="%(Template.Identity)" SourceFiles="Common/NuGet-Package/Directory.Build.props" />
-		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').EndsWith('-Large')) AND !$([System.String]::Copy('%(Template.Filename)').StartsWith('NuGet-Package'))" DestinationFolder="%(Template.Identity)" SourceFiles="Common/Directory.Build.props" />
-		
 		<!-- AspNet-Razor -->
 		<ItemGroup>
 			<AspNetRazorFile Include="Common/AspNet-Razor/Source/Application/**/*" Exclude="Common/AspNet-Razor/Source/Application/Application.csproj" />
@@ -29,55 +24,6 @@
 
 		<!-- NuGet-Package -->
 		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').StartsWith('NuGet-Package'))" DestinationFolder="%(Template.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
-
-		
-
-
-
-
-
-
-
-
-
-		
-		<!--
-			<Target Name="AfterBuild">
-				<ItemGroup>
-					<ANTLR Include="..\Data\antlrcs\**\*.*" />
-				</ItemGroup>
-				<Copy SourceFiles="@(ANTLR)" DestinationFolder="$(TargetDir)\%(RecursiveDir)" SkipUnchangedFiles="true" />
-			</Target>
-		-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<!--
-		<Message Condition="$([System.String]::Copy('%(Template.Identity)').EndsWith('-Large'))" Importance="high" Text="Prepare LARGE: %(Template.Identity)" />
-		<Message Condition="$([System.String]::Copy('%(Template.Identity)').EndsWith('-Medium'))" Importance="high" Text="Prepare MEDIUM: %(Template.Identity)" />
-		-->
-
-		<!--
-		<Message Importance="high" Text="Prepare: %(AspNetRazorProject.Identity)" />
-		<Copy DestinationFolder="%(AspNetRazorProject.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config;Common/ReadMe.md" />
-		<Copy DestinationFolder="%(AspNetRazorProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
-		<Copy Condition="%(AspNetRazorProject.DirectoryBuild)" DestinationFolder="%(AspNetRazorProject.Identity)" SourceFiles="Common/NuGet-Package/Directory.Build.props;Common/Directory.Build.targets" />
-		<Copy Condition="%(AspNetRazorProject.DirectoryBuild)" DestinationFolder="%(AspNetRazorProject.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/Project.csproj" />
-		<Copy Condition="%(AspNetRazorProject.Pipeline)" DestinationFolder="%(AspNetRazorProject.Identity)" SourceFiles="Common/NuGet-Package/Build.yml;Common/NuGet-Package/Deploy.yml;Common/NuGet-Package/Pipeline.yml;Common/NuGet-Package/Variables.yml" />
-		-->
 	</Target>
 	<Target Name="Transform" BeforeTargets="Build" DependsOnTargets="Prepare">
 		<Message Importance="high" Text="Transform..." />
