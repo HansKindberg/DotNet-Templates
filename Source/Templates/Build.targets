@@ -15,9 +15,11 @@
 		<ItemGroup>
 			<AspNetRazorFile Include="Common/AspNet-Razor/Source/Application/**/*" Exclude="Common/AspNet-Razor/Source/Application/Application.csproj" />
 		</ItemGroup>
+		<Copy DestinationFolder="Content/AspNet-Razor-ExtraLarge/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Large/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Medium/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Small/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
+		<Copy DestinationFolder="Content/AspNet-Razor-ExtraLarge" SourceFiles="Common/AspNet-Razor/.dockerignore" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Large" SourceFiles="Common/AspNet-Razor/.dockerignore" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Medium" SourceFiles="Common/AspNet-Razor/.dockerignore" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Small" SourceFiles="Common/AspNet-Razor/.dockerignore" />

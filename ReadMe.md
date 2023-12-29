@@ -18,47 +18,107 @@ The templates are not yet published on nuget.org.
 
 ### 1.3 Run
 
-Small, Medium, Large etc. explanation should be here...
+Small, Medium, Large, ExtraLarge etc. explanation should be here...
 
 The prefix **HK** is for **Hans Kindberg**, my initials.
 
-#### 1.3.1 HK-AspNet-Razor-Large
+#### 1.3.1 HK-AspNet-Razor-ExtraLarge
+
+	dotnet new hk-aspnet-razor-xl --name Example-Site
+
+#### 1.3.2 HK-AspNet-Razor-Large
 
 	dotnet new hk-aspnet-razor-l --name Example-Site
 
-#### 1.3.2 HK-AspNet-Razor-Medium
+#### 1.3.3 HK-AspNet-Razor-Medium
 
 	dotnet new hk-aspnet-razor-m --name Example-Site
 
-#### 1.3.3 HK-AspNet-Razor-Small
+#### 1.3.4 HK-AspNet-Razor-Small
 
 	dotnet new hk-aspnet-razor-s --name Example-Site
 
-#### 1.3.4 HK-NuGet-Package-Large
+#### 1.3.5 HK-NuGet-Package-ExtraLarge
+
+	dotnet new hk-nuget-package-xl --name Example.NuGetPackage
+
+#### 1.3.6 HK-NuGet-Package-Large
 
 	dotnet new hk-nuget-package-l --name Example.NuGetPackage
 
-#### 1.3.5 HK-NuGet-Package-Medium
+#### 1.3.7 HK-NuGet-Package-Medium
 
 	dotnet new hk-nuget-package-m --name Example.NuGetPackage
 
-#### 1.3.6 HK-NuGet-Package-Small
+#### 1.3.8 HK-NuGet-Package-Small
 
 	dotnet new hk-nuget-package-s --name Example.NuGetPackage
 
+#### 1.3.9 HK-React-ExtraLarge
+
+	dotnet new hk-react-xl --name Example-React
+
+#### 1.3.10 HK-React-Large
+
+	dotnet new hk-react-l --name Example-React
+
+#### 1.3.11 HK-React-Medium
+
+	dotnet new hk-react-m --name Example-React
+
+#### 1.3.12 HK-React-Small
+
+	dotnet new hk-react-s --name Example-React
+
+#### 1.3.13 HK-Service-ExtraLarge
+
+	dotnet new hk-service-xl --name Example-Service
+
+#### 1.3.14 HK-Service-Large
+
+	dotnet new hk-service-l --name Example-Service
+
+#### 1.3.15 HK-Service-Medium
+
+	dotnet new hk-service-m --name Example-Service
+
+#### 1.3.16 HK-Service-Small
+
+	dotnet new hk-service-s --name Example-Service
+
 ## 2 Solution structure
 
-### 2.1 HK-AspNet-Razor-Large
+### 2.1 HK-AspNet-Razor-ExtraLarge
 
-### 2.2 HK-AspNet-Razor-Medium
+### 2.2 HK-AspNet-Razor-Large
 
-### 2.3 HK-AspNet-Razor-Small
+### 2.3 HK-AspNet-Razor-Medium
 
-### 2.4 HK-NuGet-Package-Large
+### 2.4 HK-AspNet-Razor-Small
 
-### 2.5 HK-NuGet-Package-Medium
+### 2.5 HK-NuGet-Package-ExtraLarge
 
-### 2.6 HK-NuGet-Package-Small
+### 2.6 HK-NuGet-Package-Large
+
+### 2.7 HK-NuGet-Package-Medium
+
+### 2.8 HK-NuGet-Package-Small
+
+### 2.9 HK-React-ExtraLarge
+
+### 2.10 HK-React-Large
+
+### 2.11 HK-React-Medium
+
+### 2.12 HK-React-Small
+
+### 2.13 HK-Service-ExtraLarge
+
+### 2.14 HK-Service-Large
+
+### 2.15 HK-Service-Medium
+
+### 2.16 HK-Service-Small
 
 ## 3 Development
 
@@ -143,11 +203,31 @@ cd to your project directory.
 
 	dotnet new hk-aspnet-razor-s --name hk-aspnet-razor-s
 
+	dotnet new hk-aspnet-razor-xl --name hk-aspnet-razor-xl
+
 	dotnet new hk-nuget-package-l --name hk.nuget.package.l
 
 	dotnet new hk-nuget-package-m --name hk.nuget.package.m
 
 	dotnet new hk-nuget-package-s --name hk.nuget.package.s
+
+	dotnet new hk-nuget-package-xl --name hk.nuget.package.xl
+
+	dotnet new hk-react-l --name hk-react-l
+
+	dotnet new hk-react-m --name hk-react-m
+
+	dotnet new hk-react-s --name hk-react-s
+
+	dotnet new hk-react-xl --name hk-react-xl
+
+	dotnet new hk-service-l --name hk-service-l
+
+	dotnet new hk-service-m --name hk-service-m
+
+	dotnet new hk-service-s --name hk-service-s
+
+	dotnet new hk-service-xl --name hk-service-xl
 
 ### 3.4 Important
 
