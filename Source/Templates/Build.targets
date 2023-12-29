@@ -9,7 +9,7 @@
 	<Target Name="Prepare" DependsOnTargets="PopulateTemplates">
 		<Message Importance="high" Text="Prepare..." />
 
-		<Copy DestinationFolder="%(Template.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config;Common/ReadMe.md" />
+		<Copy DestinationFolder="%(Template.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config" />
 
 		<!-- AspNet-Razor -->
 		<ItemGroup>

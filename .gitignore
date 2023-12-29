@@ -402,7 +402,6 @@ Source/Templates/Content/*/.template.config/template.json
 Source/Templates/Content/*/.editorconfig
 Source/Templates/Content/*/.gitignore
 Source/Templates/Content/*/NuGet.config
-Source/Templates/Content/*/ReadMe.md
 
 Source/Templates/Content/AspNet-Razor*/.dockerignore*
 Source/Templates/Content/AspNet-Razor*/Source/Application/*
