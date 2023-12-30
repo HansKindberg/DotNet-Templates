@@ -1,0 +1,23 @@
+variables:
+  # Requires the following pipeline secrets. The *_IMAGE_REGISTRY_TOKEN and the *_KUBERNETES_API_TOKEN may be the same if you for example use the internal OpenShift registry as image registry.
+  # DEVELOPMENT_IMAGE_REGISTRY_TOKEN
+  # DEVELOPMENT_KUBERNETES_API_TOKEN
+  # PRODUCTION_IMAGE_REGISTRY_TOKEN
+  # PRODUCTION_KUBERNETES_API_TOKEN
+
+  _IMAGE_REGISTRY_FORMAT: "image-registry{0}.example.org"
+  _KUBERNETES_API_URL_FORMAT: "kubernetes-api{0}.example.org"
+
+  GIT_HASH: ${BUILD_SOURCEVERSION:0:8} # Only works on a Linux pool, not on a Windows pool, https://hanskindberg.wordpress.com/2023/12/20/get-short-commit-hash-in-azure-devops-pipeline-2/.
+
+  # Path to the Kubernetes template file.
+  KUBERNETES_TEMPLATE_FILE_PATH: "$(Build.SourcesDirectory)/.kubernetes/Template.yml"
+
+  PRODUCTION_IMAGE_REGISTRY: "$[format(variables['_IMAGE_REGISTRY_FORMAT'], '')]"
+  PRODUCTION_KUBERNETES_API_URL: "$[format(variables['_KUBERNETES_API_URL_FORMAT'], '')]"
+
+  STAGE_IMAGE_REGISTRY: "$(PRODUCTION_IMAGE_REGISTRY)"
+  STAGE_KUBERNETES_API_URL: "$(PRODUCTION_KUBERNETES_API_URL)"
+
+  TEST_IMAGE_REGISTRY: "$[format(variables['_IMAGE_REGISTRY_FORMAT'], '-test')]"
+  TEST_KUBERNETES_API_URL: "$[format(variables['_KUBERNETES_API_URL_FORMAT'], '-test')]"
