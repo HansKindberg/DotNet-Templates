@@ -3,6 +3,7 @@ parameters:
   type: string
   values:
   - "Production"
+  - "Stage"
   - "Test"
 
 jobs:
@@ -11,25 +12,110 @@ jobs:
   environment: "${{ parameters.Environment }}"
   variables:
   - template: "Variables.yml"
-  - name: NUGET_FEED_URL
-    value: "${{ variables[format('NUGET_{0}_FEED_URL', upper(parameters.Environment))] }}"
+  - name: DEPLOY_SOURCE_DIRECTORY_PATH
+    value: "$(Pipeline.Workspace)/${{ parameters.Environment }}-Deployment"
+  - name: IMAGE_REGISTRY
+    value: "${{ variables[replace('{0}_IMAGE_REGISTRY', '{0}', upper(parameters.Environment))] }}"
+  - name: IMAGE_TAG
+    value: "$(IMAGE_REGISTRY)/aspnet-razor/application:$(GIT_HASH)" # This is just an example. "aspnet-razor" and "application" should come from variables.
+  - name: KUBERNETES_API_URL
+    value: "${{ variables[replace('{0}_KUBERNETES_API_URL', '{0}', upper(parameters.Environment))] }}"
   strategy:
     runOnce:
       deploy:
         steps:
         - checkout: none
         - script: |
-            echo "NUGET_FEED_URL = $(NUGET_FEED_URL)"
+            echo "DEPLOY_SOURCE_DIRECTORY_PATH = $(DEPLOY_SOURCE_DIRECTORY_PATH)"
+            echo "IMAGE_REGISTRY = $(IMAGE_REGISTRY)"
+            echo "IMAGE_TAG = $(IMAGE_TAG)"
+            echo "KUBERNETES_API_URL = $(KUBERNETES_API_URL)"
           displayName: "Information"
-        - task: DownloadBuildArtifacts@0
-          displayName: "Download artifacts"
-          inputs:
-            artifactName: "$(ARTIFACT_NAME)"
-            buildType: "current"
-            downloadPath: "$(Build.ArtifactStagingDirectory)"
-        - task: DotNetCoreCLI@2
-          displayName: "NuGet push"
-          inputs:
-            arguments: "push $(Build.ArtifactStagingDirectory)/**/*.nupkg -s $(NUGET_FEED_URL)"
-            command: custom
-            custom: nuget
+          failOnStderr: true
+        - powershell: |
+            # New-PackageTransform: We need "https://www.powershellgallery.com/packages/RegionOrebroLan.Transforming/2.0.0" (or higher) on the build agent.
+            # We want a source where transformations are made for the specific environment.
+            # Configuraton-files are transformed and the transformed configuration-file can be used as configuration-map.
+            $destination = "$(DEPLOY_SOURCE_DIRECTORY_PATH)";
+            $source = "$(Build.SourcesDirectory)/Source/Application";
+            $transformationName = "Release.$(Environment.Name)";
+            Write-Host "Creating deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Release' & '$($transformationName)' ...";
+            New-PackageTransform `
+              -Destination $destination `
+              -FileToTransformPatterns "appsettings*.json" `
+              -Source $source `
+              -TransformationNames "Release", $transformationName;
+            Write-Host "Deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Release' & '$($transformationName)' created.";
+          displayName: "Create deploy-source"
+          failOnStderr: true
+        - script: |
+            echo "docker build '.' -f 'Source/Application/Dockerfile' -t '$(IMAGE_TAG)' ..."
+            docker build "." -f "Source/Application/Dockerfile" -t "$(IMAGE_TAG)"
+          displayName: "docker build"
+          failOnStderr: true # We may have to set this to false.
+        - script: |
+            echo "Testing - IMAGE_REGISTRY_TOKEN = $IMAGE_REGISTRY_TOKEN"
+
+            echo "Here we login to the image-registry and push the image. The image-registry can be https://hub.docker.com, a private image-registry or even the internal OpenShift image-registry."
+            echo "docker login -p '**********' -u unset '$(IMAGE_REGISTRY)' ..."
+            # docker login -p "$(IMAGE_REGISTRY_TOKEN)" -u unset "$(IMAGE_REGISTRY)"
+            echo "docker push '$(IMAGE_TAG)' ..."
+            # docker push "$(IMAGE_TAG)"
+          displayName: "docker login & push"
+          env:
+            # Set secret variables - Use a secret variable in the UI: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#use-a-secret-variable-in-the-ui
+            # Expressions - Conditionally assign a variable: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops#conditionally-assign-a-variable
+            ${{ if or(eq(parameters.Environment, 'Production'), eq(parameters.Environment, 'Stage')) }}:
+              IMAGE_REGISTRY_TOKEN: $(PRODUCTION_IMAGE_REGISTRY_TOKEN)
+            ${{ if eq(parameters.Environment, 'Test') }}:
+              IMAGE_REGISTRY_TOKEN: $(DEVELOPMENT_IMAGE_REGISTRY_TOKEN)
+          failOnStderr: true # We may have to set this to false.
+        - script: |
+            echo "docker images ..."
+            docker images
+          displayName: "docker images - before cleanup"
+          failOnStderr: true
+        - script: |
+            echo "docker rmi '$(IMAGE_TAG)' -f ..."
+            docker rmi "$(IMAGE_TAG)" -f
+          displayName: "docker rmi (cleanup)"
+          failOnStderr: true
+        - script: |
+            echo "docker images ..."
+            docker images
+          displayName: "docker images - after cleanup"
+          failOnStderr: true
+        - script: |
+            echo "If we use OpenShift and push to GitLab to use with Argo CD."
+            echo "We need to fix the below when we know more. Havent tried it yet."
+            echo "Here we do a clone from GitLab and do oc create configmap and oc process out to file. And then check in."
+            echo "Then Argo CD deploys."
+
+            echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
+            # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
+
+            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p DNS_NAME='$(DNS_NAME)' -p IMAGE_NAME='$(IMAGE_NAME)' -p IMAGE_TAG='$(IMAGE_TAG)' -p PROJECT_NAME='$(PROJECT_NAME)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
+            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p DNS_NAME="$(DNS_NAME)" -p IMAGE_NAME="$(IMAGE_NAME)" -p IMAGE_TAG="$(IMAGE_TAG)" -p PROJECT_NAME="$(PROJECT_NAME)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
+          displayName: "Kubernetes deploy - via Argo CD"
+          failOnStderr: false # true
+        - script: |
+            echo "Testing - KUBERNETES_API_TOKEN = $KUBERNETES_API_TOKEN"
+
+            echo "If we use OpenShift and push directly to the OpenShift environment."
+            echo "oc login '$(KUBERNETES_API_URL)' --token=********** ..."
+            # oc login "$(KUBERNETES_API_URL)" --token=$(KUBERNETES_API_TOKEN)
+
+            echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
+            # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
+
+            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p DNS_NAME='$(DNS_NAME)' -p IMAGE_NAME='$(IMAGE_NAME)' -p IMAGE_TAG='$(IMAGE_TAG)' -p PROJECT_NAME='$(PROJECT_NAME)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
+            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p DNS_NAME="$(DNS_NAME)" -p IMAGE_NAME="$(IMAGE_NAME)" -p IMAGE_TAG="$(IMAGE_TAG)" -p PROJECT_NAME="$(PROJECT_NAME)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
+          displayName: "Kubernetes deploy - directly"
+          env:
+            # Set secret variables - Use a secret variable in the UI: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#use-a-secret-variable-in-the-ui
+            # Expressions - Conditionally assign a variable: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops#conditionally-assign-a-variable
+            ${{ if or(eq(parameters.Environment, 'Production'), eq(parameters.Environment, 'Stage')) }}:
+              KUBERNETES_API_TOKEN: $(PRODUCTION_KUBERNETES_API_TOKEN)
+            ${{ if eq(parameters.Environment, 'Test') }}:
+              KUBERNETES_API_TOKEN: $(DEVELOPMENT_KUBERNETES_API_TOKEN)
+          failOnStderr: false # true

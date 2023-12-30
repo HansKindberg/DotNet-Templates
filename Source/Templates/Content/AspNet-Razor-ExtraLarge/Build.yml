@@ -32,6 +32,9 @@ jobs:
       projects: "$(BUILD_PROJECTS)"
   - task: DotNetCoreCLI@2
     displayName: "Test"
+    env:
+      # https://learn.microsoft.com/en-us/dotnet/core/tools/nuget-signed-package-verification#linux
+      DOTNET_NUGET_SIGNATURE_VERIFICATION: false
     inputs:
       arguments: "--configuration $(BUILD_CONFIGURATION)"
       command: test
