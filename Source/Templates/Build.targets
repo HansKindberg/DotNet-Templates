@@ -9,7 +9,7 @@
 	<Target Name="Prepare" DependsOnTargets="PopulateTemplates">
 		<Message Importance="high" Text="Prepare..." />
 
-		<Copy DestinationFolder="%(Template.Identity)" SourceFiles="Common/.editorconfig;Common/.gitignore;Common/NuGet.config" />
+		<Copy DestinationFolder="%(Template.Identity)" SourceFiles="Common/.editorconfig;Common/NuGet.config" />
 
 		<!-- AspNet-Razor -->
 		<ItemGroup>
@@ -19,13 +19,17 @@
 		<Copy DestinationFolder="Content/AspNet-Razor-Large/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Medium/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
 		<Copy DestinationFolder="Content/AspNet-Razor-Small/Source/Application/%(RecursiveDir)" SourceFiles="@(AspNetRazorFile)" />
-		<Copy DestinationFolder="Content/AspNet-Razor-ExtraLarge" SourceFiles="Common/AspNet-Razor/.dockerignore" />
-		<Copy DestinationFolder="Content/AspNet-Razor-Large" SourceFiles="Common/AspNet-Razor/.dockerignore" />
-		<Copy DestinationFolder="Content/AspNet-Razor-Medium" SourceFiles="Common/AspNet-Razor/.dockerignore" />
-		<Copy DestinationFolder="Content/AspNet-Razor-Small" SourceFiles="Common/AspNet-Razor/.dockerignore" />
+		<Copy DestinationFolder="Content/AspNet-Razor-ExtraLarge" SourceFiles="Common/AspNet-Razor/.dockerignore;Common/AspNet-Razor/.gitignore" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Large" SourceFiles="Common/AspNet-Razor/.dockerignore;Common/AspNet-Razor/.gitignore" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Medium" SourceFiles="Common/AspNet-Razor/.dockerignore;Common/AspNet-Razor/.gitignore" />
+		<Copy DestinationFolder="Content/AspNet-Razor-Small" SourceFiles="Common/AspNet-Razor/.dockerignore;Common/AspNet-Razor/.gitignore" />
 
 		<!-- NuGet-Package -->
 		<Copy Condition="$([System.String]::Copy('%(Template.Filename)').StartsWith('NuGet-Package'))" DestinationFolder="%(Template.Identity)/Source/Project" SourceFiles="Common/NuGet-Package/Source/Project/ReadMe.md" />
+		<Copy DestinationFolder="Content/NuGet-Package-ExtraLarge" SourceFiles="Common/NuGet-Package/.gitignore" />
+		<Copy DestinationFolder="Content/NuGet-Package-Large" SourceFiles="Common/NuGet-Package/.gitignore" />
+		<Copy DestinationFolder="Content/NuGet-Package-Medium" SourceFiles="Common/NuGet-Package/.gitignore" />
+		<Copy DestinationFolder="Content/NuGet-Package-Small" SourceFiles="Common/NuGet-Package/.gitignore" />
 
 		<!-- React -->
 		<!--
@@ -37,10 +41,10 @@
 		<Copy DestinationFolder="Content/React-Medium/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
 		<Copy DestinationFolder="Content/React-Small/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
 		-->
-		<Copy DestinationFolder="Content/React-ExtraLarge" SourceFiles="Common/React/.dockerignore" />
-		<Copy DestinationFolder="Content/React-Large" SourceFiles="Common/React/.dockerignore" />
-		<Copy DestinationFolder="Content/React-Medium" SourceFiles="Common/React/.dockerignore" />
-		<Copy DestinationFolder="Content/React-Small" SourceFiles="Common/React/.dockerignore" />
+		<Copy DestinationFolder="Content/React-ExtraLarge" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
+		<Copy DestinationFolder="Content/React-Large" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
+		<Copy DestinationFolder="Content/React-Medium" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
+		<Copy DestinationFolder="Content/React-Small" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
 
 		<!-- Service -->
 		<!--
@@ -52,10 +56,10 @@
 		<Copy DestinationFolder="Content/Service-Medium/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
 		<Copy DestinationFolder="Content/Service-Small/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
 		-->
-		<Copy DestinationFolder="Content/Service-ExtraLarge" SourceFiles="Common/Service/.dockerignore" />
-		<Copy DestinationFolder="Content/Service-Large" SourceFiles="Common/Service/.dockerignore" />
-		<Copy DestinationFolder="Content/Service-Medium" SourceFiles="Common/Service/.dockerignore" />
-		<Copy DestinationFolder="Content/Service-Small" SourceFiles="Common/Service/.dockerignore" />
+		<Copy DestinationFolder="Content/Service-ExtraLarge" SourceFiles="Common/Service/.dockerignore;Common/Service/.gitignore" />
+		<Copy DestinationFolder="Content/Service-Large" SourceFiles="Common/Service/.dockerignore;Common/Service/.gitignore" />
+		<Copy DestinationFolder="Content/Service-Medium" SourceFiles="Common/Service/.dockerignore;Common/Service/.gitignore" />
+		<Copy DestinationFolder="Content/Service-Small" SourceFiles="Common/Service/.dockerignore;Common/Service/.gitignore" />
 	</Target>
 	<Target Name="Transform" BeforeTargets="Build" DependsOnTargets="Prepare">
 		<Message Importance="high" Text="Transform..." />
