@@ -38,14 +38,14 @@ jobs:
             # Configuraton-files are transformed and the transformed configuration-file can be used as configuration-map.
             $destination = "$(DEPLOY_SOURCE_DIRECTORY_PATH)";
             $source = "$(Build.SourcesDirectory)/Source/Application";
-            $transformationName = "Release.$(Environment.Name)";
-            Write-Host "Creating deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Release' & '$($transformationName)' ...";
+            $transformationName = "Deploy.$(Environment.Name)";
+            Write-Host "Creating deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Deploy' & '$($transformationName)' ...";
             New-PackageTransform `
               -Destination $destination `
               -FileToTransformPatterns "appsettings*.json" `
               -Source $source `
-              -TransformationNames "Release", $transformationName;
-            Write-Host "Deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Release' & '$($transformationName)' created.";
+              -TransformationNames "Deploy", $transformationName;
+            Write-Host "Deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Deploy' & '$($transformationName)' created.";
           displayName: "Create deploy-source"
           failOnStderr: true
         - script: |
