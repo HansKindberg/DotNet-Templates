@@ -1,20 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Application.Pages
 {
-    public class IndexModel : PageModel
-    {
-        private readonly ILogger<IndexModel> _logger;
+	public class IndexModel : PageModel
+	{
+		#region Fields
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+		private readonly ILogger _logger;
 
-        public void OnGet()
-        {
+		#endregion
 
-        }
-    }
+		#region Constructors
+
+		public IndexModel(ILoggerFactory loggerFactory)
+		{
+			this._logger = (loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory))).CreateLogger(this.GetType());
+		}
+
+		#endregion
+
+		#region Methods
+
+		public void OnGet()
+		{
+			this._logger.LogDebug("OnGet");
+		}
+
+		#endregion
+	}
 }
