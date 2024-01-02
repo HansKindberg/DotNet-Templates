@@ -10,4 +10,10 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
 	</ItemGroup>
+	<ItemGroup>
+		<None_ Include="wwwroot/**/.gitkeep;package.json;package-lock.json;tsconfig.json" />
+		<Content Remove="@(None_)" />
+		<None Include="@(None_)" />
+	</ItemGroup>
+	<Import Project="Npm.targets" />
 </Project>

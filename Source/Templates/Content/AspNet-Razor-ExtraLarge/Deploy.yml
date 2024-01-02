@@ -12,8 +12,12 @@ jobs:
   environment: "${{ parameters.Environment }}"
   variables:
   - template: "Variables.yml"
+  - name: APPSETTINGS_ARTIFACT_PATH
+    value: "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}-appsettings.json"
   - name: DEPLOY_SOURCE_DIRECTORY_PATH
     value: "$(Pipeline.Workspace)/${{ parameters.Environment }}-Deployment"
+  - name: IMAGE_CONTENT_ARTIFACT_PATH
+    value: "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}-image-content.tar"
   - name: IMAGE_REGISTRY
     value: "${{ variables[replace('{0}_IMAGE_REGISTRY', '{0}', upper(parameters.Environment))] }}"
   - name: IMAGE_TAG
@@ -53,6 +57,37 @@ jobs:
             docker build "." -f "Source/Application/Dockerfile" -t "$(IMAGE_TAG)"
           displayName: "docker build"
           failOnStderr: true # We may have to set this to false.
+        - script: |
+            # appsettings.json
+            echo "cp '$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' '$(APPSETTINGS_ARTIFACT_PATH)' ..."
+            cp "$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" "$(APPSETTINGS_ARTIFACT_PATH)"
+
+            # Image content
+            containerName="23bb7d52-b58b-4483-a6cd-15a258cdfe82"
+
+            echo "docker create --name '$containerName' '$(IMAGE_TAG)' ..."
+            docker create --name "$containerName" "$(IMAGE_TAG)"
+
+            echo "docker export '$containerName' --output '$(IMAGE_CONTENT_ARTIFACT_PATH)' ..."
+            docker export "$containerName" --output "$(IMAGE_CONTENT_ARTIFACT_PATH)"
+            
+            echo "docker rm '$containerName' ..."
+            docker rm "$containerName"            
+          displayName: "Create artifacts"
+          failOnStderr: true
+        - task: PublishBuildArtifacts@1
+          displayName: "Publish artifacts"
+          inputs:
+            artifactName: "Drop"
+            pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+        - script: |
+            echo "rm --force '$(APPSETTINGS_ARTIFACT_PATH)' ..."
+            rm --force "$(APPSETTINGS_ARTIFACT_PATH)"
+
+            echo "rm --force '$(IMAGE_CONTENT_ARTIFACT_PATH)' ..."
+            rm --force "$(IMAGE_CONTENT_ARTIFACT_PATH)"
+          displayName: "Clean artifacts"
+          failOnStderr: true
         - script: |
             echo "Testing - IMAGE_REGISTRY_TOKEN = $IMAGE_REGISTRY_TOKEN"
 

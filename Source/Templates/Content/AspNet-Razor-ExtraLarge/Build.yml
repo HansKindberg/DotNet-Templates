@@ -18,6 +18,10 @@ jobs:
     displayName: "Use .NET Core sdk 8.0"
     inputs:
       version: 8.0.x
+  - task: NodeTool@0
+    displayName: "Use Node.js"
+    inputs:
+      versionSpec: "20.10.x" # https://nodejs.org/en - go for the latest LTS (Long Term Support) version.
   - task: DotNetCoreCLI@2
     displayName: "Restore"
     inputs:
