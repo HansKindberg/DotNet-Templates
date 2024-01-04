@@ -116,9 +116,9 @@ jobs:
           env:
             # Set secret variables - Use a secret variable in the UI: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#use-a-secret-variable-in-the-ui
             # Expressions - Conditionally assign a variable: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops#conditionally-assign-a-variable
-            ${{ if or(eq(parameters.Environment, 'Production'), eq(parameters.Environment, 'Stage')) }}:
+            ${{ if eq(parameters.Environment, 'Production') }}:
               IMAGE_REGISTRY_TOKEN: $(PRODUCTION_IMAGE_REGISTRY_TOKEN)
-            ${{ if eq(parameters.Environment, 'Test') }}:
+            ${{ if or(eq(parameters.Environment, 'Stage'), eq(parameters.Environment, 'Test')) }}:
               IMAGE_REGISTRY_TOKEN: $(DEVELOPMENT_IMAGE_REGISTRY_TOKEN)
           failOnStderr: true # We may have to set this to false.
         - script: |
@@ -165,8 +165,8 @@ jobs:
           env:
             # Set secret variables - Use a secret variable in the UI: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#use-a-secret-variable-in-the-ui
             # Expressions - Conditionally assign a variable: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops#conditionally-assign-a-variable
-            ${{ if or(eq(parameters.Environment, 'Production'), eq(parameters.Environment, 'Stage')) }}:
+            ${{ if eq(parameters.Environment, 'Production') }}:
               KUBERNETES_API_TOKEN: $(PRODUCTION_KUBERNETES_API_TOKEN)
-            ${{ if eq(parameters.Environment, 'Test') }}:
+            ${{ if or(eq(parameters.Environment, 'Stage'), eq(parameters.Environment, 'Test')) }}:
               KUBERNETES_API_TOKEN: $(DEVELOPMENT_KUBERNETES_API_TOKEN)
           failOnStderr: true
