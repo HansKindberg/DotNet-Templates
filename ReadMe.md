@@ -30,6 +30,8 @@ or (if the package is in another nuget source)
 
 The prefix **HK** is for **Hans Kindberg**, my initials.
 
+Small, Medium, Large and ExtraLarge is for "how much" the created solution will contain. See "2 Solution structure" below.
+
 #### 1.3.1 HK-AspNet-Razor-ExtraLarge
 
 	dotnet new hk-aspnet-razor-xl --name Example-Site
@@ -96,16 +98,47 @@ The prefix **HK** is for **Hans Kindberg**, my initials.
 
 ## 2 Solution structure
 
-
-
-
-
-
-Small, Medium, Large, ExtraLarge etc. explanation should be here...
-
-
+The templates will create the following solution structure.
 
 ### 2.1 HK-AspNet-Razor-ExtraLarge
+
+- .kubernetes
+	- EgressNetworkPolicy.development-cluster.json
+	- EgressNetworkPolicy.production-cluster.json
+	- ReadMe.md
+	- Template.yml
+- Source
+	- Application
+		- ...
+		- Application.csproj
+		- appsettings.json
+		- appsettings.Deploy.json
+			- appsettings.Deploy.Production.json
+			- appsettings.Deploy.Stage.json
+			- appsettings.Deploy.Test.json
+		- appsettings.Development.json
+		- Dockerfile
+		- ...
+- Tests
+	- Integration-tests
+		- Integration-tests.csproj
+	- Unit-tests
+		- Unit-tests.csproj
+	- .editorconfig
+	- Directory.Build.props
+	- Directory.Build.targets
+- .dockerignore
+- .editorconfig
+- .gitignore
+- Name.sln (the --name parameter when you create it)
+- Build.yml
+- Deploy.yml
+- Directory.Build.props
+- Directory.Build.targets
+- NuGet.config
+- Pipeline.yml
+- ReadMe.md
+- Variables.yml
 
 ### 2.2 HK-AspNet-Razor-Large
 
