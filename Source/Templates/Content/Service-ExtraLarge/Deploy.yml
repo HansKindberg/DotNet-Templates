@@ -12,24 +12,43 @@ jobs:
   environment: "${{ parameters.Environment }}"
   variables:
   - template: "Variables.yml"
+  - name: APPSETTINGS_ARTIFACT_PATH
+    value: "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}-appsettings.json"
   - name: DEPLOY_SOURCE_DIRECTORY_PATH
     value: "$(Pipeline.Workspace)/${{ parameters.Environment }}-Deployment"
-  - name: IMAGE_REGISTRY
-    value: "${{ variables[replace('{0}_IMAGE_REGISTRY', '{0}', upper(parameters.Environment))] }}"
-  - name: IMAGE_TAG
-    value: "$(IMAGE_REGISTRY)/aspnet-razor/application:$(GIT_HASH)" # This is just an example. "aspnet-razor" and "application" should come from variables.
+  - name: HOST
+    value: "${{ variables[format('{0}_HOST', upper(parameters.Environment))] }}"
+  - name: IMAGE_CONTENT_ARTIFACT_PATH
+    value: "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}-image-content.tar"
+  - name: IMAGE_PULL
+    value: "${{ variables[format('{0}_IMAGE_PULL', upper(parameters.Environment))] }}"
+  - name: IMAGE_PULL_REGISTRY
+    value: "${{ variables[format('{0}_IMAGE_PULL_REGISTRY', upper(parameters.Environment))] }}"
+  - name: IMAGE_PUSH
+    value: "${{ variables[format('{0}_IMAGE_PUSH', upper(parameters.Environment))] }}"
+  - name: IMAGE_PUSH_REGISTRY
+    value: "${{ variables[format('{0}_IMAGE_PUSH_REGISTRY', upper(parameters.Environment))] }}"
   - name: KUBERNETES_API_URL
-    value: "${{ variables[replace('{0}_KUBERNETES_API_URL', '{0}', upper(parameters.Environment))] }}"
+    value: "${{ variables[format('{0}_KUBERNETES_API_URL', upper(parameters.Environment))] }}"
+  - name: REPLICAS
+    value: "${{ variables[format('{0}_REPLICAS', upper(parameters.Environment))] }}"
   strategy:
     runOnce:
       deploy:
         steps:
         - checkout: none
         - script: |
+            echo "APPSETTINGS_ARTIFACT_PATH = $(APPSETTINGS_ARTIFACT_PATH)"
             echo "DEPLOY_SOURCE_DIRECTORY_PATH = $(DEPLOY_SOURCE_DIRECTORY_PATH)"
-            echo "IMAGE_REGISTRY = $(IMAGE_REGISTRY)"
-            echo "IMAGE_TAG = $(IMAGE_TAG)"
+            echo "HOST = $(HOST)"
+            echo "IMAGE_CONTENT_ARTIFACT_PATH = $(IMAGE_CONTENT_ARTIFACT_PATH)"
+            echo "IMAGE_PULL = $(IMAGE_PULL)"
+            echo "IMAGE_PULL_REGISTRY = $(IMAGE_PULL_REGISTRY)"
+            echo "IMAGE_PUSH = $(IMAGE_PUSH)"
+            echo "IMAGE_PUSH_REGISTRY = $(IMAGE_PUSH_REGISTRY)"
             echo "KUBERNETES_API_URL = $(KUBERNETES_API_URL)"
+            echo "KUBERNETES_TEMPLATE_FILE_PATH = $(KUBERNETES_TEMPLATE_FILE_PATH)"
+            echo "REPLICAS = $(REPLICAS)"
           displayName: "Information"
           failOnStderr: true
         - powershell: |
@@ -37,7 +56,7 @@ jobs:
             # We want a source where transformations are made for the specific environment.
             # Configuraton-files are transformed and the transformed configuration-file can be used as configuration-map.
             $destination = "$(DEPLOY_SOURCE_DIRECTORY_PATH)";
-            $source = "$(Build.SourcesDirectory)/Source/Application";
+            $source = "$(Build.SourcesDirectory)/Source/Service";
             $transformationName = "Deploy.$(Environment.Name)";
             Write-Host "Creating deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Deploy' & '$($transformationName)' ...";
             New-PackageTransform `
@@ -49,25 +68,56 @@ jobs:
           displayName: "Create deploy-source"
           failOnStderr: true
         - script: |
-            echo "docker build '.' -f 'Source/Application/Dockerfile' -t '$(IMAGE_TAG)' ..."
-            docker build "." -f "Source/Application/Dockerfile" -t "$(IMAGE_TAG)"
+            echo "docker build '.' -f 'Source/Service/Dockerfile' -t '$(IMAGE_PUSH)' ..."
+            docker build "." -f "Source/Service/Dockerfile" -t "$(IMAGE_PUSH)"
           displayName: "docker build"
           failOnStderr: true # We may have to set this to false.
+        - script: |
+            # appsettings.json
+            echo "cp '$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' '$(APPSETTINGS_ARTIFACT_PATH)' ..."
+            cp "$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" "$(APPSETTINGS_ARTIFACT_PATH)"
+
+            # Image content
+            containerName="23bb7d52-b58b-4483-a6cd-15a258cdfe82"
+
+            echo "docker create --name '$containerName' '$(IMAGE_PUSH)' ..."
+            docker create --name "$containerName" "$(IMAGE_PUSH)"
+
+            echo "docker export '$containerName' --output '$(IMAGE_CONTENT_ARTIFACT_PATH)' ..."
+            docker export "$containerName" --output "$(IMAGE_CONTENT_ARTIFACT_PATH)"
+            
+            echo "docker rm '$containerName' ..."
+            docker rm "$containerName"            
+          displayName: "Create artifacts"
+          failOnStderr: true
+        - task: PublishBuildArtifacts@1
+          displayName: "Publish artifacts"
+          inputs:
+            artifactName: "Drop"
+            pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+        - script: |
+            echo "rm --force '$(APPSETTINGS_ARTIFACT_PATH)' ..."
+            rm --force "$(APPSETTINGS_ARTIFACT_PATH)"
+
+            echo "rm --force '$(IMAGE_CONTENT_ARTIFACT_PATH)' ..."
+            rm --force "$(IMAGE_CONTENT_ARTIFACT_PATH)"
+          displayName: "Clean artifacts"
+          failOnStderr: true
         - script: |
             echo "Testing - IMAGE_REGISTRY_TOKEN = $IMAGE_REGISTRY_TOKEN"
 
             echo "Here we login to the image-registry and push the image. The image-registry can be https://hub.docker.com, a private image-registry or even the internal OpenShift image-registry."
-            echo "docker login -p '**********' -u unset '$(IMAGE_REGISTRY)' ..."
-            # docker login -p "$(IMAGE_REGISTRY_TOKEN)" -u unset "$(IMAGE_REGISTRY)"
-            echo "docker push '$(IMAGE_TAG)' ..."
-            # docker push "$(IMAGE_TAG)"
+            echo "docker login -p '**********' -u unset '$(IMAGE_PUSH_REGISTRY)' ..."
+            # docker login -p "$IMAGE_REGISTRY_TOKEN" -u unset "$(IMAGE_PUSH_REGISTRY)"
+            echo "docker push '$(IMAGE_PUSH)' ..."
+            # docker push "$(IMAGE_PUSH)"
           displayName: "docker login & push"
           env:
             # Set secret variables - Use a secret variable in the UI: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#use-a-secret-variable-in-the-ui
             # Expressions - Conditionally assign a variable: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops#conditionally-assign-a-variable
-            ${{ if or(eq(parameters.Environment, 'Production'), eq(parameters.Environment, 'Stage')) }}:
+            ${{ if eq(parameters.Environment, 'Production') }}:
               IMAGE_REGISTRY_TOKEN: $(PRODUCTION_IMAGE_REGISTRY_TOKEN)
-            ${{ if eq(parameters.Environment, 'Test') }}:
+            ${{ if or(eq(parameters.Environment, 'Stage'), eq(parameters.Environment, 'Test')) }}:
               IMAGE_REGISTRY_TOKEN: $(DEVELOPMENT_IMAGE_REGISTRY_TOKEN)
           failOnStderr: true # We may have to set this to false.
         - script: |
@@ -76,8 +126,8 @@ jobs:
           displayName: "docker images - before cleanup"
           failOnStderr: true
         - script: |
-            echo "docker rmi '$(IMAGE_TAG)' -f ..."
-            docker rmi "$(IMAGE_TAG)" -f
+            echo "docker rmi '$(IMAGE_PUSH)' -f ..."
+            docker rmi "$(IMAGE_PUSH)" -f
           displayName: "docker rmi (cleanup)"
           failOnStderr: true
         - script: |
@@ -94,28 +144,28 @@ jobs:
             echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
             # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
 
-            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p DNS_NAME='$(DNS_NAME)' -p IMAGE_NAME='$(IMAGE_NAME)' -p IMAGE_TAG='$(IMAGE_TAG)' -p PROJECT_NAME='$(PROJECT_NAME)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
-            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p DNS_NAME="$(DNS_NAME)" -p IMAGE_NAME="$(IMAGE_NAME)" -p IMAGE_TAG="$(IMAGE_TAG)" -p PROJECT_NAME="$(PROJECT_NAME)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
+            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
+            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
           displayName: "Kubernetes deploy - via Argo CD"
-          failOnStderr: false # true
+          failOnStderr: true
         - script: |
             echo "Testing - KUBERNETES_API_TOKEN = $KUBERNETES_API_TOKEN"
 
             echo "If we use OpenShift and push directly to the OpenShift environment."
             echo "oc login '$(KUBERNETES_API_URL)' --token=********** ..."
-            # oc login "$(KUBERNETES_API_URL)" --token=$(KUBERNETES_API_TOKEN)
+            # oc login "$(KUBERNETES_API_URL)" --token=$KUBERNETES_API_TOKEN
 
             echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
             # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
 
-            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p DNS_NAME='$(DNS_NAME)' -p IMAGE_NAME='$(IMAGE_NAME)' -p IMAGE_TAG='$(IMAGE_TAG)' -p PROJECT_NAME='$(PROJECT_NAME)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
-            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p DNS_NAME="$(DNS_NAME)" -p IMAGE_NAME="$(IMAGE_NAME)" -p IMAGE_TAG="$(IMAGE_TAG)" -p PROJECT_NAME="$(PROJECT_NAME)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
+            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
+            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
           displayName: "Kubernetes deploy - directly"
           env:
             # Set secret variables - Use a secret variable in the UI: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#use-a-secret-variable-in-the-ui
             # Expressions - Conditionally assign a variable: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops#conditionally-assign-a-variable
-            ${{ if or(eq(parameters.Environment, 'Production'), eq(parameters.Environment, 'Stage')) }}:
+            ${{ if eq(parameters.Environment, 'Production') }}:
               KUBERNETES_API_TOKEN: $(PRODUCTION_KUBERNETES_API_TOKEN)
-            ${{ if eq(parameters.Environment, 'Test') }}:
+            ${{ if or(eq(parameters.Environment, 'Stage'), eq(parameters.Environment, 'Test')) }}:
               KUBERNETES_API_TOKEN: $(DEVELOPMENT_KUBERNETES_API_TOKEN)
-          failOnStderr: false # true
+          failOnStderr: true

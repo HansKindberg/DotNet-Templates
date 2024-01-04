@@ -5,19 +5,78 @@ variables:
   # PRODUCTION_IMAGE_REGISTRY_TOKEN
   # PRODUCTION_KUBERNETES_API_TOKEN
 
-  _IMAGE_REGISTRY_FORMAT: "image-registry{0}.example.org"
-  _KUBERNETES_API_URL_FORMAT: "kubernetes-api{0}.example.org"
+  _GIT_HASH: ${BUILD_SOURCEVERSION:0:8} # Only works on a Linux pool, not on a Windows pool, https://hanskindberg.wordpress.com/2023/12/20/get-short-commit-hash-in-azure-devops-pipeline-2/.
+  _IMAGE_PATH_FORMAT: "/react{0}/application:{1}$(_GIT_HASH)" # An example when using the internal OpenShift registry, the first part should be the project-name/namespace-name. If using Docker hub this would probably be something like "/company-name/application:{0}$(_GIT_HASH)".
 
-  GIT_HASH: ${BUILD_SOURCEVERSION:0:8} # Only works on a Linux pool, not on a Windows pool, https://hanskindberg.wordpress.com/2023/12/20/get-short-commit-hash-in-azure-devops-pipeline-2/.
+  KUBERNETES_TEMPLATE_FILE_PATH: "$(Build.SourcesDirectory)/.kubernetes/Template.yml" # Path to the Kubernetes template file.
 
-  # Path to the Kubernetes template file.
-  KUBERNETES_TEMPLATE_FILE_PATH: "$(Build.SourcesDirectory)/.kubernetes/Template.yml"
+  PRODUCTION_HOST: "react.example.org"
+  PRODUCTION_IMAGE_PULL_REGISTRY: "image-pull-registry.prod.example.org" # The registry to pull from. Differs from the registry to push to when using the OpenShift registry. The same as the registry to push to when using Docker hub, eg. docker.io/organization/the-image:latest.
+  PRODUCTION_IMAGE_PUSH_REGISTRY: "image-push-registry.prod.example.org" # The registry to push to. Differs from the registry to pull from when using the OpenShift registry. The same as the registry to pull from when using Docker hub, eg. docker.io/organization/the-image:latest.
+  PRODUCTION_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], '-production', '')]"
+  PRODUCTION_IMAGE_PULL: "$(PRODUCTION_IMAGE_PULL_REGISTRY)$(PRODUCTION_IMAGE_PATH)"
+  PRODUCTION_IMAGE_PUSH: "$(PRODUCTION_IMAGE_PUSH_REGISTRY)$(PRODUCTION_IMAGE_PATH)"
+  PRODUCTION_KUBERNETES_API_URL: "kubernetes-api.prod.example.org"
+  PRODUCTION_REPLICAS: 2 # REPLICAS - the number of nodes for the load-balancing
 
-  PRODUCTION_IMAGE_REGISTRY: "$[format(variables['_IMAGE_REGISTRY_FORMAT'], '')]"
-  PRODUCTION_KUBERNETES_API_URL: "$[format(variables['_KUBERNETES_API_URL_FORMAT'], '')]"
+  STAGE_HOST: "react-stage.example.org"
+  STAGE_IMAGE_PULL_REGISTRY: "image-pull-registry.dev.example.org"
+  STAGE_IMAGE_PUSH_REGISTRY: "image-push-registry.dev.example.org"
+  STAGE_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], '-stage', 'stage-')]"
+  STAGE_IMAGE_PULL: "$(STAGE_IMAGE_PULL_REGISTRY)$(STAGE_IMAGE_PATH)"
+  STAGE_IMAGE_PUSH: "$(STAGE_IMAGE_PUSH_REGISTRY)$(STAGE_IMAGE_PATH)"
+  STAGE_KUBERNETES_API_URL: "kubernetes-api.dev.example.org"
+  STAGE_REPLICAS: 2
 
-  STAGE_IMAGE_REGISTRY: "$(PRODUCTION_IMAGE_REGISTRY)"
-  STAGE_KUBERNETES_API_URL: "$(PRODUCTION_KUBERNETES_API_URL)"
+  TEST_HOST: "react-test.example.org"
+  TEST_IMAGE_PULL_REGISTRY: "$(STAGE_IMAGE_PULL_REGISTRY)"
+  TEST_IMAGE_PUSH_REGISTRY: "$(STAGE_IMAGE_PUSH_REGISTRY)"
+  TEST_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], '-test', 'test-')]"
+  TEST_IMAGE_PULL: "$(TEST_IMAGE_PULL_REGISTRY)$(TEST_IMAGE_PATH)"
+  TEST_IMAGE_PUSH: "$(TEST_IMAGE_PUSH_REGISTRY)$(TEST_IMAGE_PATH)"
+  TEST_KUBERNETES_API_URL: "$(STAGE_KUBERNETES_API_URL)"
+  TEST_REPLICAS: 1
 
-  TEST_IMAGE_REGISTRY: "$[format(variables['_IMAGE_REGISTRY_FORMAT'], '-test')]"
-  TEST_KUBERNETES_API_URL: "$[format(variables['_KUBERNETES_API_URL_FORMAT'], '-test')]"
+  # Example if docker.io
+  # --------------------------------------
+  # _IMAGE_PATH_FORMAT: "/company-name/application:{0}$(_GIT_HASH)"
+
+  # PRODUCTION_IMAGE_PULL_REGISTRY: "docker.io"
+  # PRODUCTION_IMAGE_PUSH_REGISTRY: "$(PRODUCTION_IMAGE_PULL_REGISTRY)"
+  # PRODUCTION_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], '')]"
+  # PRODUCTION_IMAGE_PULL: "$(PRODUCTION_IMAGE_PULL_REGISTRY)$(PRODUCTION_IMAGE_PATH)"
+  # PRODUCTION_IMAGE_PUSH: "$(PRODUCTION_IMAGE_PUSH_REGISTRY)$(PRODUCTION_IMAGE_PATH)"
+
+  # STAGE_IMAGE_PULL_REGISTRY: "$(PRODUCTION_IMAGE_PULL_REGISTRY)"
+  # STAGE_IMAGE_PUSH_REGISTRY: "$(PRODUCTION_IMAGE_PUSH_REGISTRY)"
+  # STAGE_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], 'stage-')]"
+  # STAGE_IMAGE_PULL: "$(STAGE_IMAGE_PULL_REGISTRY)$(STAGE_IMAGE_PATH)"
+  # STAGE_IMAGE_PUSH: "$(STAGE_IMAGE_PUSH_REGISTRY)$(STAGE_IMAGE_PATH)"
+
+  # TEST_IMAGE_PULL_REGISTRY: "$(STAGE_IMAGE_PULL_REGISTRY)"
+  # TEST_IMAGE_PUSH_REGISTRY: "$(STAGE_IMAGE_PUSH_REGISTRY)"
+  # TEST_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], 'test-')]"
+  # TEST_IMAGE_PULL: "$(TEST_IMAGE_PULL_REGISTRY)$(TEST_IMAGE_PATH)"
+  # TEST_IMAGE_PUSH: "$(TEST_IMAGE_PUSH_REGISTRY)$(TEST_IMAGE_PATH)"
+
+  # Example if internal OpenShift registry
+  # --------------------------------------
+  # _IMAGE_PATH_FORMAT: "/react{0}/application:{1}$(_GIT_HASH)"
+
+  # PRODUCTION_IMAGE_PULL_REGISTRY: "image-registry.openshift-image-registry.svc:5000"
+  # PRODUCTION_IMAGE_PUSH_REGISTRY: "default-route-openshift-image-registry.apps.prod.example.org"
+  # PRODUCTION_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], '-production', '')]"
+  # PRODUCTION_IMAGE_PULL: "$(PRODUCTION_IMAGE_PULL_REGISTRY)$(PRODUCTION_IMAGE_PATH)"
+  # PRODUCTION_IMAGE_PUSH: "$(PRODUCTION_IMAGE_PUSH_REGISTRY)$(PRODUCTION_IMAGE_PATH)"
+
+  # STAGE_IMAGE_PULL_REGISTRY: "$(PRODUCTION_IMAGE_PULL_REGISTRY)"
+  # STAGE_IMAGE_PUSH_REGISTRY: "default-route-openshift-image-registry.apps.dev.example.org"
+  # STAGE_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], '-stage', 'stage-')]"
+  # STAGE_IMAGE_PULL: "$(STAGE_IMAGE_PULL_REGISTRY)$(STAGE_IMAGE_PATH)"
+  # STAGE_IMAGE_PUSH: "$(STAGE_IMAGE_PUSH_REGISTRY)$(STAGE_IMAGE_PATH)"
+
+  # TEST_IMAGE_PULL_REGISTRY: "$(STAGE_IMAGE_PULL_REGISTRY)"
+  # TEST_IMAGE_PUSH_REGISTRY: "$(STAGE_IMAGE_PUSH_REGISTRY)"
+  # TEST_IMAGE_PATH: "$[format(variables['_IMAGE_PATH_FORMAT'], '-test', 'test-')]"
+  # TEST_IMAGE_PULL: "$(TEST_IMAGE_PULL_REGISTRY)$(TEST_IMAGE_PATH)"
+  # TEST_IMAGE_PUSH: "$(TEST_IMAGE_PUSH_REGISTRY)$(TEST_IMAGE_PATH)"
