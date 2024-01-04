@@ -4,33 +4,26 @@ namespace Service.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ExampleController : ControllerBase
+    public class ExampleController(ILoggerFactory loggerFactory) : ControllerBase
     {
-        #region Constructors
+	    #region Properties
 
-        public ExampleController(ILoggerFactory loggerFactory)
-        {
-            this.Logger = (loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory))).CreateLogger(this.GetType());
-        }
+	    protected internal virtual ILogger Logger { get; } = (loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory))).CreateLogger(typeof(ExampleController));
 
-        #endregion
+	    #endregion
 
-        #region Properties
+	    #region Methods
 
-        protected internal virtual ILogger Logger { get; }
+	    [HttpGet]
+	    public virtual async Task<string?> Get()
+	    {
+		    await Task.CompletedTask;
 
-        #endregion
+		    this.Logger.LogDebug("Get");
 
-        #region Methods
+		    return "Value";
+	    }
 
-        [HttpGet]
-        public virtual string Get()
-        {
-            this.Logger.LogDebug("Get");
-
-            return "Value";
-        }
-
-        #endregion
+	    #endregion
     }
 }

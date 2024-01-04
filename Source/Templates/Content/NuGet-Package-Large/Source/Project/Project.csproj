@@ -19,4 +19,8 @@
 		<!-- https://learn.microsoft.com/en-us/nuget/reference/msbuild-targets#packagereadmefile -->
 		<None Include="ReadMe.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="Integration-tests" />
+		<InternalsVisibleTo Include="Unit-tests" />
+	</ItemGroup>
 </Project>

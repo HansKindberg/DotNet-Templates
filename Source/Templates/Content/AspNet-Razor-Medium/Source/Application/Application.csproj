@@ -15,5 +15,9 @@
 		<Content Remove="@(None_)" />
 		<None Include="@(None_)" />
 	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="Integration-tests" />
+		<InternalsVisibleTo Include="Unit-tests" />
+	</ItemGroup>
 	<Import Project="Npm.targets" />
 </Project>
