@@ -39,7 +39,6 @@ jobs:
         - checkout: none
         - script: |
             echo "APPSETTINGS_ARTIFACT_PATH = $(APPSETTINGS_ARTIFACT_PATH)"
-            echo "CONTAINER_NAME = $(CONTAINER_NAME)"
             echo "DEPLOY_SOURCE_DIRECTORY_PATH = $(DEPLOY_SOURCE_DIRECTORY_PATH)"
             echo "HOST = $(HOST)"
             echo "IMAGE_CONTENT_ARTIFACT_PATH = $(IMAGE_CONTENT_ARTIFACT_PATH)"
@@ -145,8 +144,8 @@ jobs:
             echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
             # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
 
-            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p CONTAINER_NAME='$(CONTAINER_NAME)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
-            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p CONTAINER_NAME="$(CONTAINER_NAME)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
+            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
+            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
           displayName: "Kubernetes deploy - via Argo CD"
           failOnStderr: true
         - script: |
@@ -159,8 +158,8 @@ jobs:
             echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
             # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
 
-            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p CONTAINER_NAME='$(CONTAINER_NAME)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
-            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p CONTAINER_NAME="$(CONTAINER_NAME)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
+            echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
+            # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
           displayName: "Kubernetes deploy - directly"
           env:
             # Set secret variables - Use a secret variable in the UI: https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#use-a-secret-variable-in-the-ui

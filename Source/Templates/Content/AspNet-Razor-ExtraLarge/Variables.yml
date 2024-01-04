@@ -8,7 +8,6 @@ variables:
   _GIT_HASH: ${BUILD_SOURCEVERSION:0:8} # Only works on a Linux pool, not on a Windows pool, https://hanskindberg.wordpress.com/2023/12/20/get-short-commit-hash-in-azure-devops-pipeline-2/.
   _IMAGE_PATH_FORMAT: "/aspnet-razor{0}/application:{1}$(_GIT_HASH)" # An example when using the internal OpenShift registry, the first part should be the project-name/namespace-name. If using Docker hub this would probably be something like "/company-name/application:{0}$(_GIT_HASH)".
 
-  CONTAINER_NAME: "application" # Will be used as identifier in the Template.yml.
   KUBERNETES_TEMPLATE_FILE_PATH: "$(Build.SourcesDirectory)/.kubernetes/Template.yml" # Path to the Kubernetes template file.
 
   PRODUCTION_HOST: "application.example.org"
