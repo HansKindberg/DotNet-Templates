@@ -130,11 +130,11 @@ The templates will create the following solution structure.
 - .dockerignore
 - .editorconfig
 - .gitignore
-- Name.sln (the --name parameter when you create it)
 - Build.yml
 - Deploy.yml
 - Directory.Build.props
 - Directory.Build.targets
+- Name.sln (the --name parameter when you create it)
 - NuGet.config
 - Pipeline.yml
 - ReadMe.md
@@ -142,17 +142,160 @@ The templates will create the following solution structure.
 
 ### 2.2 HK-AspNet-Razor-Large
 
+- Source
+	- Application
+		- ...
+		- Application.csproj
+		- appsettings.json
+		- appsettings.Deploy.json
+			- appsettings.Deploy.Production.json
+			- appsettings.Deploy.Stage.json
+			- appsettings.Deploy.Test.json
+		- appsettings.Development.json
+		- Dockerfile
+		- ...
+- Tests
+	- Integration-tests
+		- Integration-tests.csproj
+	- Unit-tests
+		- Unit-tests.csproj
+	- .editorconfig
+	- Directory.Build.props
+	- Directory.Build.targets
+- .dockerignore
+- .editorconfig
+- .gitignore
+- Directory.Build.props
+- Directory.Build.targets
+- Name.sln (the --name parameter when you create it)
+- NuGet.config
+- ReadMe.md
+
 ### 2.3 HK-AspNet-Razor-Medium
+
+- Source
+	- Application
+		- ...
+		- Application.csproj
+		- appsettings.json
+		- appsettings.Deploy.json
+			- appsettings.Deploy.Production.json
+			- appsettings.Deploy.Stage.json
+			- appsettings.Deploy.Test.json
+		- appsettings.Development.json
+		- Dockerfile
+		- ...
+- Tests
+	- Integration-tests
+		- Integration-tests.csproj
+	- Unit-tests
+		- Unit-tests.csproj
+	- .editorconfig
+- .dockerignore
+- .editorconfig
+- .gitignore
+- Name.sln (the --name parameter when you create it)
+- NuGet.config
+- ReadMe.md
 
 ### 2.4 HK-AspNet-Razor-Small
 
+- Source
+	- Application
+		- ...
+		- Application.csproj
+		- appsettings.json
+		- appsettings.Deploy.json
+			- appsettings.Deploy.Production.json
+			- appsettings.Deploy.Stage.json
+			- appsettings.Deploy.Test.json
+		- appsettings.Development.json
+		- Dockerfile
+		- ...
+- .dockerignore
+- .editorconfig
+- .gitignore
+- Name.sln (the --name parameter when you create it)
+- NuGet.config
+- ReadMe.md
+
 ### 2.5 HK-NuGet-Package-ExtraLarge
+
+- Source
+	- Project
+		- Project.csproj
+		- ReadMe.md
+- Tests
+	- Integration-tests
+		- Integration-tests.csproj
+	- Unit-tests
+		- Unit-tests.csproj
+	- .editorconfig
+	- Directory.Build.props
+	- Directory.Build.targets
+- .editorconfig
+- .gitignore
+- Build.yml
+- Deploy.yml
+- Directory.Build.props
+- Directory.Build.targets
+- Name.sln (the --name parameter when you create it)
+- NuGet.config
+- Pipeline.yml
+- ReadMe.md
+- Variables.yml
 
 ### 2.6 HK-NuGet-Package-Large
 
+- Source
+	- Project
+		- Project.csproj
+		- ReadMe.md
+- Tests
+	- Integration-tests
+		- Integration-tests.csproj
+	- Unit-tests
+		- Unit-tests.csproj
+	- .editorconfig
+	- Directory.Build.props
+	- Directory.Build.targets
+- .editorconfig
+- .gitignore
+- Directory.Build.props
+- Directory.Build.targets
+- Name.sln (the --name parameter when you create it)
+- NuGet.config
+- ReadMe.md
+
 ### 2.7 HK-NuGet-Package-Medium
 
+- Source
+	- Project
+		- Project.csproj
+		- ReadMe.md
+- Tests
+	- Integration-tests
+		- Integration-tests.csproj
+	- Unit-tests
+		- Unit-tests.csproj
+	- .editorconfig
+- .editorconfig
+- .gitignore
+- Name.sln (the --name parameter when you create it)
+- NuGet.config
+- ReadMe.md
+
 ### 2.8 HK-NuGet-Package-Small
+
+- Source
+	- Project
+		- Project.csproj
+		- ReadMe.md
+- .editorconfig
+- .gitignore
+- Name.sln (the --name parameter when you create it)
+- NuGet.config
+- ReadMe.md
 
 ### 2.9 HK-React-ExtraLarge
 
