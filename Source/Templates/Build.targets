@@ -47,7 +47,7 @@
 		<Copy DestinationFolder="Content/React-Small" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
 
 		<!-- Service -->
-		<!--
+		
 		<ItemGroup>
 			<ServiceFile Include="Common/Service/Source/Service/**/*" Exclude="Common/Service/Source/Service/Service.csproj" />
 		</ItemGroup>
@@ -55,7 +55,6 @@
 		<Copy DestinationFolder="Content/Service-Large/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
 		<Copy DestinationFolder="Content/Service-Medium/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
 		<Copy DestinationFolder="Content/Service-Small/Source/Service/%(RecursiveDir)" SourceFiles="@(ServiceFile)" />
-		-->
 		<Copy DestinationFolder="Content/Service-ExtraLarge" SourceFiles="Common/Service/.dockerignore;Common/Service/.gitignore" />
 		<Copy DestinationFolder="Content/Service-Large" SourceFiles="Common/Service/.dockerignore;Common/Service/.gitignore" />
 		<Copy DestinationFolder="Content/Service-Medium" SourceFiles="Common/Service/.dockerignore;Common/Service/.gitignore" />
