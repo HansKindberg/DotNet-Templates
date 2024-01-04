@@ -154,7 +154,7 @@ jobs:
 
             echo "If we use OpenShift and push directly to the OpenShift environment."
             echo "oc login '$(KUBERNETES_API_URL)' --token=********** ..."
-            # oc login "$(KUBERNETES_API_URL)" --token=$(KUBERNETES_API_TOKEN)
+            # oc login "$(KUBERNETES_API_URL)" --token=$KUBERNETES_API_TOKEN
 
             echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
             # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
