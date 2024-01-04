@@ -12,13 +12,21 @@ The templates are not yet published on nuget.org.
 
 	dotnet new install HansKindberg-DotNet-Templates
 
+or (if testing locally)
+
+	dotnet new install HansKindberg-DotNet-Templates --nuget-source "C:\Data\Projects\HansKindberg\DotNet-Templates\Source\Templates\bin\Debug"
+
+or (if the package is in another nuget source)
+
+	dotnet new install HansKindberg-DotNet-Templates --nuget-source "https://nuget.example.org/v3/index.json"
+
+- [dotnet new install](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-install)
+
 ### 1.2 Uninstall
 
 	dotnet new uninstall HansKindberg-DotNet-Templates
 
 ### 1.3 Run
-
-Small, Medium, Large, ExtraLarge etc. explanation should be here...
 
 The prefix **HK** is for **Hans Kindberg**, my initials.
 
@@ -87,6 +95,15 @@ The prefix **HK** is for **Hans Kindberg**, my initials.
 	dotnet new hk-service-s --name Example-Service
 
 ## 2 Solution structure
+
+
+
+
+
+
+Small, Medium, Large, ExtraLarge etc. explanation should be here...
+
+
 
 ### 2.1 HK-AspNet-Razor-ExtraLarge
 
