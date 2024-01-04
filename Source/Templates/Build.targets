@@ -32,22 +32,19 @@
 		<Copy DestinationFolder="Content/NuGet-Package-Small" SourceFiles="Common/NuGet-Package/.gitignore" />
 
 		<!-- React -->
-		<!--
 		<ItemGroup>
-			<ReactFile Include="Common/React/Source/Application/**/*" Exclude="Common/React/Source/Application/Application.csproj" />
+			<ReactFile Include="Common/React/Source/**/*" Exclude="Common/React/Source/Bff/Bff.csproj" />
 		</ItemGroup>
-		<Copy DestinationFolder="Content/React-ExtraLarge/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
-		<Copy DestinationFolder="Content/React-Large/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
-		<Copy DestinationFolder="Content/React-Medium/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
-		<Copy DestinationFolder="Content/React-Small/Source/Application/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
-		-->
+		<Copy DestinationFolder="Content/React-ExtraLarge/Source/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
+		<Copy DestinationFolder="Content/React-Large/Source/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
+		<Copy DestinationFolder="Content/React-Medium/Source/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
+		<Copy DestinationFolder="Content/React-Small/Source/%(RecursiveDir)" SourceFiles="@(ReactFile)" />
 		<Copy DestinationFolder="Content/React-ExtraLarge" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
 		<Copy DestinationFolder="Content/React-Large" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
 		<Copy DestinationFolder="Content/React-Medium" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
 		<Copy DestinationFolder="Content/React-Small" SourceFiles="Common/React/.dockerignore;Common/React/.gitignore" />
 
 		<!-- Service -->
-		
 		<ItemGroup>
 			<ServiceFile Include="Common/Service/Source/Service/**/*" Exclude="Common/Service/Source/Service/Service.csproj" />
 		</ItemGroup>

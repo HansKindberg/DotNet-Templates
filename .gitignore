@@ -411,9 +411,10 @@ Source/Templates/Content/AspNet-Razor*/Source/Application/*
 Source/Templates/Content/NuGet-Package*/Source/Project/ReadMe.md
 
 Source/Templates/Content/React*/.dockerignore*
-Source/Templates/Content/React*/Source/Application/*
-!Source/Templates/Content/React*/Source/Application/Application.csproj
-!Source/Templates/Content/React*/Source/Application/Dockerfile
+Source/Templates/Content/React*/Source/Bff/*
+!Source/Templates/Content/React*/Source/Bff/Bff.csproj
+!Source/Templates/Content/React*/Source/Bff/Dockerfile
+Source/Templates/Content/React*/Source/Spa/*
 
 Source/Templates/Content/Service*/.dockerignore*
 Source/Templates/Content/Service*/Source/Service/*

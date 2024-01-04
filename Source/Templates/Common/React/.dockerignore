@@ -30,5 +30,5 @@ README.md
 !.git/refs/heads/**
 
 # Custom
-Source/Application/appsettings.json
-Source/Application/appsettings.*.json
+Source/Bff/appsettings.json
+Source/Bff/appsettings.*.json
