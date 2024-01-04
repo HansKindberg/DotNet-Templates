@@ -18,6 +18,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="../../Source/Application/Application.csproj" />
+		<ProjectReference Include="../../Source/Service/Service.csproj" />
 	</ItemGroup>
 </Project>
