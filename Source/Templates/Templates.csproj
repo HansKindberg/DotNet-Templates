@@ -1,22 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<AssemblyName>HansKindberg-DotNet-Templates</AssemblyName>
 		<Authors>Hans Kindberg</Authors>
 		<ContentTargetFolders>content</ContentTargetFolders>
 		<Description>TODO: fill the package description here</Description>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<IncludeContentInPack>true</IncludeContentInPack>
+		<!--
+			IncludeSourceRevisionInInformationalVersion = false
+			Just so the integration-tests can get the NuGet-package and test it's contents.
+			- https://stackoverflow.com/questions/77050814/fileversioninfo-productversion-suddenly-contains-git-commit-hash#answer-77051386
+			- Git commit ID included in assembly ProductVersion field when building with sdk 8 #34568 - https://github.com/dotnet/sdk/issues/34568
+		-->
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 		<LocalizeTemplates>false</LocalizeTemplates>
 		<NoDefaultExcludes>true</NoDefaultExcludes>
 		<NoWarn>$(NoWarn);NU5128</NoWarn>
-		<PackageId>HansKindberg-DotNet-Templates</PackageId>
+		<PackageId>$(AssemblyName)</PackageId>
 		<PackageProjectUrl>https://github.com/HansKindberg/DotNet-Templates</PackageProjectUrl>
 		<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
 		<PackageTags>TODO: fill the tags here</PackageTags>
 		<PackageType>Template</PackageType>
-		<PackageVersion>0.0.1-alpha.1</PackageVersion>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 		<Title>TODO: fill the package name here</Title>
+		<VersionPrefix>0.0.1</VersionPrefix>
+		<VersionSuffix>alpha.1</VersionSuffix>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.TemplateEngine.Tasks" Version="*" PrivateAssets="all" IsImplicitlyDefined="true" />
@@ -27,6 +36,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Remove="**/*" />
+		<!-- Global.cs: Just here for the integration-tests. -->
+		<Compile Include="Global.cs" />
 		<!-- Common - begin -->
 		<Content Remove="Common/**/*" />
 		<None Remove="Common/**/*" />
@@ -42,6 +53,9 @@
 		<None Include="Content/**/Transform.Template.json" />
 		<!-- Content - end -->
 		<None Include="ReadMe.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="Integration-tests" />
 	</ItemGroup>
 	<Import Project="Build.targets" />
 </Project>

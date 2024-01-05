@@ -2,4 +2,7 @@
 	<PropertyGroup>
 		<RootNamespace>IntegrationTests</RootNamespace>
 	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="NuGet.Packaging" Version="6.8.0" />
+	</ItemGroup>
 </Project>
