@@ -11,6 +11,17 @@ namespace IntegrationTests
 		#region Methods
 
 		[Fact]
+		public async Task NuGet_BuildItems_ShouldBeEmpty()
+		{
+			await Task.CompletedTask;
+
+			using(var packageArchiveReader = new PackageArchiveReader(Global.NuGetPackageFile.FullName))
+			{
+				Assert.Empty(packageArchiveReader.GetBuildItems());
+			}
+		}
+
+		[Fact]
 		public async Task NuGet_ContentItems_Test()
 		{
 			await Task.CompletedTask;
@@ -125,14 +136,13 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public async Task NuGet_DependencyGroups_Test()
+		public async Task NuGet_DependencyGroups_ShouldBeEmpty()
 		{
 			await Task.CompletedTask;
 
 			using(var packageArchiveReader = new PackageArchiveReader(Global.NuGetPackageFile.FullName))
 			{
-				var dependencyGroups = packageArchiveReader.NuspecReader.GetDependencyGroups();
-				Assert.Empty(dependencyGroups);
+				Assert.Empty(packageArchiveReader.NuspecReader.GetDependencyGroups());
 			}
 		}
 
@@ -145,6 +155,39 @@ namespace IntegrationTests
 			{
 				var files = packageArchiveReader.GetFiles();
 				Assert.Equal(513, files.Count());
+			}
+		}
+
+		[Fact]
+		public async Task NuGet_FrameworkItems_ShouldBeEmpty()
+		{
+			await Task.CompletedTask;
+
+			using(var packageArchiveReader = new PackageArchiveReader(Global.NuGetPackageFile.FullName))
+			{
+				Assert.Empty(packageArchiveReader.GetFrameworkItems());
+			}
+		}
+
+		[Fact]
+		public async Task NuGet_LibItems_ShouldBeEmpty()
+		{
+			await Task.CompletedTask;
+
+			using(var packageArchiveReader = new PackageArchiveReader(Global.NuGetPackageFile.FullName))
+			{
+				Assert.Empty(packageArchiveReader.GetLibItems());
+			}
+		}
+
+		[Fact]
+		public async Task NuGet_PackageDependencies_ShouldBeEmpty()
+		{
+			await Task.CompletedTask;
+
+			using(var packageArchiveReader = new PackageArchiveReader(Global.NuGetPackageFile.FullName))
+			{
+				Assert.Empty(packageArchiveReader.GetPackageDependencies());
 			}
 		}
 
@@ -173,6 +216,17 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public async Task NuGet_ReferenceItems_ShouldBeEmpty()
+		{
+			await Task.CompletedTask;
+
+			using(var packageArchiveReader = new PackageArchiveReader(Global.NuGetPackageFile.FullName))
+			{
+				Assert.Empty(packageArchiveReader.GetReferenceItems());
+			}
+		}
+
+		[Fact]
 		public async Task NuGet_Specification_Test()
 		{
 			await Task.CompletedTask;
@@ -184,6 +238,17 @@ namespace IntegrationTests
 				Assert.Equal("TODO: fill the package description here", nuspecReader.GetDescription());
 				Assert.Equal(Global.NuGetPackageName, nuspecReader.GetId());
 				Assert.Equal(Global.NuGetPackageVersion, nuspecReader.GetVersion().OriginalVersion);
+			}
+		}
+
+		[Fact]
+		public async Task NuGet_ToolItems_ShouldBeEmpty()
+		{
+			await Task.CompletedTask;
+
+			using(var packageArchiveReader = new PackageArchiveReader(Global.NuGetPackageFile.FullName))
+			{
+				Assert.Empty(packageArchiveReader.GetToolItems());
 			}
 		}
 
