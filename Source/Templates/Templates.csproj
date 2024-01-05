@@ -16,7 +16,6 @@
 		<PackageType>Template</PackageType>
 		<PackageVersion>0.0.1-alpha.1</PackageVersion>
 		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-		<TargetFramework>net8.0</TargetFramework>
 		<Title>TODO: fill the package name here</Title>
 	</PropertyGroup>
 	<ItemGroup>

@@ -20,7 +20,10 @@ indent_style = space
 
 [*.cs]
 # Set all, https://docs.microsoft.com/en-us/visualstudio/code-quality/use-roslyn-analyzers?view=vs-2019#set-rule-severity-of-multiple-analyzer-rules-at-once-in-an-editorconfig-file
-#dotnet_analyzer_diagnostic.severity = error # Uncomment to set severity to error.
+dotnet_analyzer_diagnostic.severity = error # Uncomment to set severity to error.
 
 # Suppress (suppress any rule you need to suppress)
 #dotnet_diagnostic.CA1848.severity = none # As an example
+
+# Visual Studio
+csharp_space_after_keywords_in_control_flow_statements = false # Avoid space after if in if-statement. Eg. if() and not if ()

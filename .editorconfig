@@ -22,7 +22,7 @@ indent_style = space
 # Set all, https://docs.microsoft.com/en-us/visualstudio/code-quality/use-roslyn-analyzers?view=vs-2019#set-rule-severity-of-multiple-analyzer-rules-at-once-in-an-editorconfig-file
 dotnet_analyzer_diagnostic.severity = error
 
-# Suppress (suppress any rule you need to suppress)
+# Suppress
 #dotnet_diagnostic.CA1716.severity = none
 #dotnet_diagnostic.CA1848.severity = none
 #dotnet_diagnostic.CA1852.severity = none
@@ -32,7 +32,7 @@ dotnet_analyzer_diagnostic.severity = error
 #dotnet_diagnostic.IDE0008.severity = none
 #dotnet_diagnostic.IDE0011.severity = none
 #dotnet_diagnostic.IDE0046.severity = none
-#dotnet_diagnostic.IDE0055.severity = none
+dotnet_diagnostic.IDE0055.severity = none
 #dotnet_diagnostic.IDE0058.severity = none
 #dotnet_diagnostic.IDE0063.severity = none
 
