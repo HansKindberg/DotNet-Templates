@@ -48,51 +48,99 @@ Small, Medium, Large and ExtraLarge is for "how much" the created solution will 
 
 	dotnet new hk-aspnet-razor-s --name Example-Site
 
-#### 1.3.5 HK-NuGet-Package-ExtraLarge
+#### 1.3.5 HK-Blazor-ExtraLarge
+
+	dotnet new hk-blazor-xl --name Example-Blazor
+
+#### 1.3.6 HK-Blazor-Large
+
+	dotnet new hk-blazor-l --name Example-Blazor
+
+#### 1.3.7 HK-Blazor-Medium
+
+	dotnet new hk-blazor-m --name Example-Blazor
+
+#### 1.3.8 HK-Blazor-Small
+
+	dotnet new hk-blazor-s --name Example-Blazor
+
+#### 1.3.9 HK-Blazor-Duende-ExtraLarge
+
+	dotnet new hk-blazor-duende-xl --name Example-Blazor-Duende
+
+#### 1.3.10 HK-Blazor-Duende-Large
+
+	dotnet new hk-blazor-duende-l --name Example-Blazor-Duende
+
+#### 1.3.11 HK-Blazor-Duende-Medium
+
+	dotnet new hk-blazor-duende-m --name Example-Blazor-Duende
+
+#### 1.3.12 HK-Blazor-Duende-Small
+
+	dotnet new hk-blazor-duende-s --name Example-Blazor-Duende
+
+#### 1.3.13 HK-NuGet-Package-ExtraLarge
 
 	dotnet new hk-nuget-package-xl --name Example.NuGetPackage
 
-#### 1.3.6 HK-NuGet-Package-Large
+#### 1.3.14 HK-NuGet-Package-Large
 
 	dotnet new hk-nuget-package-l --name Example.NuGetPackage
 
-#### 1.3.7 HK-NuGet-Package-Medium
+#### 1.3.15 HK-NuGet-Package-Medium
 
 	dotnet new hk-nuget-package-m --name Example.NuGetPackage
 
-#### 1.3.8 HK-NuGet-Package-Small
+#### 1.3.16 HK-NuGet-Package-Small
 
 	dotnet new hk-nuget-package-s --name Example.NuGetPackage
 
-#### 1.3.9 HK-React-ExtraLarge
+#### 1.3.17 HK-React-ExtraLarge
 
 	dotnet new hk-react-xl --name Example-React
 
-#### 1.3.10 HK-React-Large
+#### 1.3.18 HK-React-Large
 
 	dotnet new hk-react-l --name Example-React
 
-#### 1.3.11 HK-React-Medium
+#### 1.3.19 HK-React-Medium
 
 	dotnet new hk-react-m --name Example-React
 
-#### 1.3.12 HK-React-Small
+#### 1.3.20 HK-React-Small
 
 	dotnet new hk-react-s --name Example-React
 
-#### 1.3.13 HK-Service-ExtraLarge
+#### 1.3.21 HK-React-Duende-ExtraLarge
+
+	dotnet new hk-react-duende-xl --name Example-React-Duende
+
+#### 1.3.22 HK-React-Duende-Large
+
+	dotnet new hk-react-duende-l --name Example-React-Duende
+
+#### 1.3.23 HK-React-Duende-Medium
+
+	dotnet new hk-react-duende-m --name Example-React-Duende
+
+#### 1.3.24 HK-React-Duende-Small
+
+	dotnet new hk-react-duende-s --name Example-React-Duende
+
+#### 1.3.25 HK-Service-ExtraLarge
 
 	dotnet new hk-service-xl --name Example-Service
 
-#### 1.3.14 HK-Service-Large
+#### 1.3.26 HK-Service-Large
 
 	dotnet new hk-service-l --name Example-Service
 
-#### 1.3.15 HK-Service-Medium
+#### 1.3.27 HK-Service-Medium
 
 	dotnet new hk-service-m --name Example-Service
 
-#### 1.3.16 HK-Service-Small
+#### 1.3.28 HK-Service-Small
 
 	dotnet new hk-service-s --name Example-Service
 
@@ -219,7 +267,23 @@ The templates will create the following solution structure.
 - NuGet.config
 - ReadMe.md
 
-### 2.5 HK-NuGet-Package-ExtraLarge
+### 2.5 HK-Blazor-ExtraLarge
+
+### 2.6 HK-Blazor-ExtraLarge
+
+### 2.7 HK-Blazor-ExtraLarge
+
+### 2.8 HK-Blazor-ExtraLarge
+
+### 2.9 HK-Blazor-Duende-ExtraLarge
+
+### 2.10 HK-Blazor-Duende-ExtraLarge
+
+### 2.11 HK-Blazor-Duende-ExtraLarge
+
+### 2.12 HK-Blazor-Duende-ExtraLarge
+
+### 2.13 HK-NuGet-Package-ExtraLarge
 
 - Source
 	- Project
@@ -245,7 +309,7 @@ The templates will create the following solution structure.
 - ReadMe.md
 - Variables.yml
 
-### 2.6 HK-NuGet-Package-Large
+### 2.14 HK-NuGet-Package-Large
 
 - Source
 	- Project
@@ -267,7 +331,7 @@ The templates will create the following solution structure.
 - NuGet.config
 - ReadMe.md
 
-### 2.7 HK-NuGet-Package-Medium
+### 2.15 HK-NuGet-Package-Medium
 
 - Source
 	- Project
@@ -285,7 +349,7 @@ The templates will create the following solution structure.
 - NuGet.config
 - ReadMe.md
 
-### 2.8 HK-NuGet-Package-Small
+### 2.16 HK-NuGet-Package-Small
 
 - Source
 	- Project
@@ -297,21 +361,29 @@ The templates will create the following solution structure.
 - NuGet.config
 - ReadMe.md
 
-### 2.9 HK-React-ExtraLarge
+### 2.17 HK-React-ExtraLarge
 
-### 2.10 HK-React-Large
+### 2.18 HK-React-Large
 
-### 2.11 HK-React-Medium
+### 2.19 HK-React-Medium
 
-### 2.12 HK-React-Small
+### 2.20 HK-React-Small
 
-### 2.13 HK-Service-ExtraLarge
+### 2.21 HK-React-Duende-ExtraLarge
 
-### 2.14 HK-Service-Large
+### 2.22 HK-React-Duende-Large
 
-### 2.15 HK-Service-Medium
+### 2.23 HK-React-Duende-Medium
 
-### 2.16 HK-Service-Small
+### 2.24 HK-React-Duende-Small
+
+### 2.25 HK-Service-ExtraLarge
+
+### 2.26 HK-Service-Large
+
+### 2.27 HK-Service-Medium
+
+### 2.28 HK-Service-Small
 
 ## 3 Development
 
@@ -398,6 +470,22 @@ cd to your project directory.
 
 	dotnet new hk-aspnet-razor-xl --name hk-aspnet-razor-xl
 
+	dotnet new hk-blazor-l --name hk-blazor-l
+
+	dotnet new hk-blazor-m --name hk-blazor-m
+
+	dotnet new hk-blazor-s --name hk-blazor-s
+
+	dotnet new hk-blazor-xl --name hk-blazor-xl
+
+	dotnet new hk-blazor-duende-l --name hk-blazor-duende-l
+
+	dotnet new hk-blazor-duende-m --name hk-blazor-duende-m
+
+	dotnet new hk-blazor-duende-s --name hk-blazor-duende-s
+
+	dotnet new hk-blazor-duende-xl --name hk-blazor-duende-xl
+
 	dotnet new hk-nuget-package-l --name hk.nuget.package.l
 
 	dotnet new hk-nuget-package-m --name hk.nuget.package.m
@@ -413,6 +501,14 @@ cd to your project directory.
 	dotnet new hk-react-s --name hk-react-s
 
 	dotnet new hk-react-xl --name hk-react-xl
+
+	dotnet new hk-react-duende-l --name hk-react-duende-l
+
+	dotnet new hk-react-duende-m --name hk-react-duende-m
+
+	dotnet new hk-react-duende-s --name hk-react-duende-s
+
+	dotnet new hk-react-duende-xl --name hk-react-duende-xl
 
 	dotnet new hk-service-l --name hk-service-l
 
