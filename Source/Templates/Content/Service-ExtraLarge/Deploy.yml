@@ -107,11 +107,6 @@ jobs:
             ${{ if or(eq(parameters.Environment, 'Stage'), eq(parameters.Environment, 'Test')) }}:
               IMAGE_REGISTRY_TOKEN: $(DEVELOPMENT_IMAGE_REGISTRY_TOKEN)
           failOnStderr: true # We may have to set this to false.
-
-
-
-
-
         - script: |
             echo "docker images ..."
             docker images
@@ -127,6 +122,11 @@ jobs:
             docker images
           displayName: "docker images - after cleanup"
           failOnStderr: true
+
+
+
+
+
         - script: |
             echo "If we use OpenShift and push to GitLab to use with Argo CD."
             echo "We need to fix the below when we know more. Havent tried it yet."
