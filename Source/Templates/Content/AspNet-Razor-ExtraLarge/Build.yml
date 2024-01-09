@@ -24,6 +24,9 @@ jobs:
       versionSpec: "20.10.x" # https://nodejs.org/en - go for the latest LTS (Long Term Support) version.
   - task: DotNetCoreCLI@2
     displayName: "Restore"
+    env:
+      # https://learn.microsoft.com/en-us/dotnet/core/tools/nuget-signed-package-verification#linux
+      DOTNET_NUGET_SIGNATURE_VERIFICATION: false
     inputs:
       command: restore
       feedsToUse: "config"
