@@ -12,14 +12,8 @@ jobs:
   environment: "${{ parameters.Environment }}"
   variables:
   - template: "Variables.yml"
-  - name: APPSETTINGS_ARTIFACT_PATH
-    value: "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}-appsettings.json"
-  - name: DEPLOY_SOURCE_DIRECTORY_PATH
-    value: "$(Pipeline.Workspace)/${{ parameters.Environment }}-Deployment"
   - name: HOST
     value: "${{ variables[format('{0}_HOST', upper(parameters.Environment))] }}"
-  - name: IMAGE_CONTENT_ARTIFACT_PATH
-    value: "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}-image-content.tar"
   - name: IMAGE_PULL
     value: "${{ variables[format('{0}_IMAGE_PULL', upper(parameters.Environment))] }}"
   - name: IMAGE_PULL_REGISTRY
@@ -38,10 +32,8 @@ jobs:
         steps:
         - checkout: none
         - script: |
-            echo "APPSETTINGS_ARTIFACT_PATH = $(APPSETTINGS_ARTIFACT_PATH)"
-            echo "DEPLOY_SOURCE_DIRECTORY_PATH = $(DEPLOY_SOURCE_DIRECTORY_PATH)"
+            echo "Build.BuildNumber = $(Build.BuildNumber)"
             echo "HOST = $(HOST)"
-            echo "IMAGE_CONTENT_ARTIFACT_PATH = $(IMAGE_CONTENT_ARTIFACT_PATH)"
             echo "IMAGE_PULL = $(IMAGE_PULL)"
             echo "IMAGE_PULL_REGISTRY = $(IMAGE_PULL_REGISTRY)"
             echo "IMAGE_PUSH = $(IMAGE_PUSH)"
@@ -49,23 +41,24 @@ jobs:
             echo "KUBERNETES_API_URL = $(KUBERNETES_API_URL)"
             echo "KUBERNETES_TEMPLATE_FILE_PATH = $(KUBERNETES_TEMPLATE_FILE_PATH)"
             echo "REPLICAS = $(REPLICAS)"
+            echo "TRANSFORM_DIRECTORY_PATH = $(TRANSFORM_DIRECTORY_PATH)"
           displayName: "Information"
           failOnStderr: true
         - powershell: |
             # New-PackageTransform: We need "https://www.powershellgallery.com/packages/RegionOrebroLan.Transforming/2.0.0" (or higher) on the build agent.
             # We want a source where transformations are made for the specific environment.
-            # Configuraton-files are transformed and the transformed configuration-file can be used as configuration-map.
-            $destination = "$(DEPLOY_SOURCE_DIRECTORY_PATH)";
-            $source = "$(Build.SourcesDirectory)/Source/Service";
-            $transformationName = "Deploy.$(Environment.Name)";
-            Write-Host "Creating deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Deploy' & '$($transformationName)' ...";
+            # Configuraton-files are transformed and the transformed configuration-files can be used as configuration-maps.
+            $destination = "$(TRANSFORM_DIRECTORY_PATH)/${{ parameters.Environment }}";
+            $source = "$(Build.SourcesDirectory)/Source";
+            $transformationName = "Deploy.${{ parameters.Environment }}";
+            Write-Host "Transforming from soure '$($source)' to destination '$($destination)' with transformation-names 'Deploy' & '$($transformationName)' ...";
             New-PackageTransform `
               -Destination $destination `
-              -FileToTransformPatterns "appsettings*.json" `
+              -FileToTransformPatterns "**/appsettings*.json" `
               -Source $source `
               -TransformationNames "Deploy", $transformationName;
-            Write-Host "Deploy-source '$($destination)' from soure '$($source)' with transformation-names 'Deploy' & '$($transformationName)' created.";
-          displayName: "Create deploy-source"
+            Write-Host "Transformed from soure '$($source)' to destination '$($destination)' with transformation-names 'Deploy' & '$($transformationName)'.";
+          displayName: "Transform"
           failOnStderr: true
         - script: |
             echo "docker build '.' -f 'Source/Service/Dockerfile' -t '$(IMAGE_PUSH)' ..."
@@ -73,9 +66,11 @@ jobs:
           displayName: "docker build"
           failOnStderr: true # We may have to set this to false.
         - script: |
-            # appsettings.json
-            echo "cp '$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' '$(APPSETTINGS_ARTIFACT_PATH)' ..."
-            cp "$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" "$(APPSETTINGS_ARTIFACT_PATH)"
+            # Service/appsettings.json
+            echo "mkdir -p '$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}/Service' ..."
+            mkdir -p "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}/Service"
+            echo "cp '$(TRANSFORM_DIRECTORY_PATH)/${{ parameters.Environment }}/Service/appsettings.json' '$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}/Service/appsettings.json' ..."
+            cp "$(TRANSFORM_DIRECTORY_PATH)/${{ parameters.Environment }}/Service/appsettings.json" "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}/Service/appsettings.json"
 
             # Image content
             containerName="23bb7d52-b58b-4483-a6cd-15a258cdfe82"
@@ -83,8 +78,8 @@ jobs:
             echo "docker create --name '$containerName' '$(IMAGE_PUSH)' ..."
             docker create --name "$containerName" "$(IMAGE_PUSH)"
 
-            echo "docker export '$containerName' --output '$(IMAGE_CONTENT_ARTIFACT_PATH)' ..."
-            docker export "$containerName" --output "$(IMAGE_CONTENT_ARTIFACT_PATH)"
+            echo "docker export '$containerName' --output '$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}/Image-content.tar' ..."
+            docker export "$containerName" --output "$(Build.ArtifactStagingDirectory)/${{ parameters.Environment }}/Image-content.tar"
             
             echo "docker rm '$containerName' ..."
             docker rm "$containerName"            
@@ -95,14 +90,11 @@ jobs:
           inputs:
             artifactName: "Drop"
             pathtoPublish: "$(Build.ArtifactStagingDirectory)"
-        - script: |
-            echo "rm --force '$(APPSETTINGS_ARTIFACT_PATH)' ..."
-            rm --force "$(APPSETTINGS_ARTIFACT_PATH)"
 
-            echo "rm --force '$(IMAGE_CONTENT_ARTIFACT_PATH)' ..."
-            rm --force "$(IMAGE_CONTENT_ARTIFACT_PATH)"
-          displayName: "Clean artifacts"
-          failOnStderr: true
+
+
+
+
         - script: |
             echo "Testing - IMAGE_REGISTRY_TOKEN = $IMAGE_REGISTRY_TOKEN"
 

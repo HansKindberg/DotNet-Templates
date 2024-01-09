@@ -90,6 +90,11 @@ jobs:
           inputs:
             artifactName: "Drop"
             pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+
+
+
+
+
         - script: |
             echo "Testing - IMAGE_REGISTRY_TOKEN = $IMAGE_REGISTRY_TOKEN"
 

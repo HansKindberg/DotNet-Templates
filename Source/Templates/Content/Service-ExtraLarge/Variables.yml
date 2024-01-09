@@ -37,6 +37,8 @@ variables:
   TEST_KUBERNETES_API_URL: "$(STAGE_KUBERNETES_API_URL)"
   TEST_REPLICAS: 1
 
+  TRANSFORM_DIRECTORY_PATH: "$(Pipeline.Workspace)/Transform"
+
   # Example if docker.io
   # --------------------------------------
   # _IMAGE_PATH_FORMAT: "/company-name/service:{0}$(_GIT_HASH)"
