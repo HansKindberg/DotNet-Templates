@@ -53,3 +53,13 @@ stages:
   - template: "Deploy.yml"
     parameters:
       Environment: "Production"
+- stage: "Clean"
+  condition: always()
+  dependsOn:
+    - "Build"
+    - "Test"
+    - "Stage"
+    - "Production"
+  displayName: "Cleanup"
+  jobs:
+  - template: "Clean.yml"
