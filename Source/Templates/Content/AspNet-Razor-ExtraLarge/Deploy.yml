@@ -122,19 +122,14 @@ jobs:
             docker images
           displayName: "docker images - after cleanup"
           failOnStderr: true
-
-
-
-
-
         - script: |
             echo "If we use OpenShift and push to GitLab to use with Argo CD."
             echo "We need to fix the below when we know more. Havent tried it yet."
             echo "Here we do a clone from GitLab and do oc create configmap and oc process out to file. And then check in."
             echo "Then Argo CD deploys."
 
-            echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
-            # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
+            echo "oc create configmap 'appsettings-configmap' --from-file='$(TRANSFORM_DIRECTORY_PATH)/${{ parameters.Environment }}/Application/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
+            # oc create configmap "appsettings-configmap" --from-file="$(TRANSFORM_DIRECTORY_PATH)/${{ parameters.Environment }}/Application/appsettings.json" -o yaml --dry-run=client | oc apply -f -
 
             echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
             # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -
@@ -147,8 +142,8 @@ jobs:
             echo "oc login '$(KUBERNETES_API_URL)' --token=********** ..."
             # oc login "$(KUBERNETES_API_URL)" --token=$KUBERNETES_API_TOKEN
 
-            echo "oc create configmap 'appsettings-configmap' --from-file='$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
-            # oc create configmap "appsettings-configmap" --from-file="$(DEPLOY_SOURCE_DIRECTORY_PATH)/appsettings.json" -o yaml --dry-run=client | oc apply -f -
+            echo "oc create configmap 'appsettings-configmap' --from-file='$(TRANSFORM_DIRECTORY_PATH)/${{ parameters.Environment }}/Application/appsettings.json' -o yaml --dry-run=client | oc apply -f -"
+            # oc create configmap "appsettings-configmap" --from-file="$(TRANSFORM_DIRECTORY_PATH)/${{ parameters.Environment }}/Application/appsettings.json" -o yaml --dry-run=client | oc apply -f -
 
             echo "oc process -f '$(KUBERNETES_TEMPLATE_FILE_PATH)' -p BUILD_NUMBER='$(Build.BuildNumber)' -p CONTAINER_IMAGE='$(IMAGE_PULL)' -p HOST='$(HOST)' -p REPLICAS='$(REPLICAS)' | oc apply -f -"
             # oc process -f "$(KUBERNETES_TEMPLATE_FILE_PATH)" -p BUILD_NUMBER="$(Build.BuildNumber)" -p CONTAINER_IMAGE="$(IMAGE_PULL)" -p HOST="$(HOST)" -p REPLICAS="$(REPLICAS)" | oc apply -f -

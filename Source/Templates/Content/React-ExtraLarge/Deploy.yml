@@ -122,11 +122,6 @@ jobs:
             docker images
           displayName: "docker images - after cleanup"
           failOnStderr: true
-
-
-
-
-
         - script: |
             echo "If we use OpenShift and push to GitLab to use with Argo CD."
             echo "We need to fix the below when we know more. Havent tried it yet."
