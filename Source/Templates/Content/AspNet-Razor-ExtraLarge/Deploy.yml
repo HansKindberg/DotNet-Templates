@@ -90,11 +90,6 @@ jobs:
           inputs:
             artifactName: "Drop"
             pathtoPublish: "$(Build.ArtifactStagingDirectory)"
-
-
-
-
-
         - script: |
             echo "Testing - IMAGE_REGISTRY_TOKEN = $IMAGE_REGISTRY_TOKEN"
 
@@ -112,6 +107,11 @@ jobs:
             ${{ if or(eq(parameters.Environment, 'Stage'), eq(parameters.Environment, 'Test')) }}:
               IMAGE_REGISTRY_TOKEN: $(DEVELOPMENT_IMAGE_REGISTRY_TOKEN)
           failOnStderr: true # We may have to set this to false.
+
+
+
+
+
         - script: |
             echo "docker images ..."
             docker images
